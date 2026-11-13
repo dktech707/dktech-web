@@ -42,8 +42,9 @@ const JOBS = [
   { id: 'proof-controlled-aggression', src: '05_PROOF/PROOF_CONTROLLED_AGGRESSION_CHART_47.jpg', widths: [420, 760], group: 'proof' },
   { id: 'proof-mixmag-adria', src: '05_PROOF/PROOF_MIXMAG_ADRIA_HARDGROOVE_HARD_TECHNO_RADAR_02.png', widths: [420, 760, 1100], group: 'proof' },
   // The DEPO Clubhouse photographs (05_PROOF/PROOF_DEPO_LIVE_*) are kept in the
-  // private source archive but are NOT published: the venue must not appear on
-  // the public site, so they are not processed into public/media.
+  // private source archive and are not processed here. The venue was kept off
+  // the public site until the artist cleared it on 13 November 2026; since then
+  // the hero video loop (scripts/prepare-video.sh) shows the DEPO booth.
 
   /*
     Machine detail. Real equipment, cropped out of the real live photographs,

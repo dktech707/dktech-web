@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { HeroLoop } from '@/components/HeroLoop'
 import { Relit } from '@/components/Relit'
 import { generatedImages } from '@/data/media.generated'
 import { artist } from '@/data/site'
@@ -170,6 +171,7 @@ export function Presence() {
             />
           }
         />
+        <HeroLoop reduced={reduced} />
         <div className="presence__haze" ref={hazeRef} aria-hidden="true" />
       </div>
 

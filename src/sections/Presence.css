@@ -49,6 +49,48 @@
 }
 
 /*
+  Live loop (components/HeroLoop.tsx).
+
+  Invisible until the video is really playing, then it fades in over the
+  portrait. The footage is held down to the same darkness as the room and the
+  shade opens it only around the light, so the hero still reads as one lamp in
+  a black room, now with a night going on inside it.
+*/
+.presence__loop {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1600ms var(--ease-out);
+}
+
+.presence__loop[data-playing='true'] {
+  opacity: 1;
+}
+
+.presence__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  filter: brightness(1.08) contrast(1.1) saturate(0.9);
+  transform: scale(1.04) translate3d(0, calc(var(--hero-exit) * -3vh), 0);
+}
+
+.presence__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--lx, 58%) var(--ly, 30%),
+    transparent 0%,
+    transparent 10vmax,
+    rgb(1 1 2 / 0.4) 36vmax,
+    rgb(1 1 2 / 0.7) 72vmax
+  );
+}
+
+/*
   Haze.
 
   A single very faint elliptical smear that drifts with the light at a fraction
@@ -335,6 +377,12 @@
     object-position: 58% 2%;
     transform: scale(1.42) translate3d(0, calc(var(--hero-exit) * -2vh), 0);
     transform-origin: 58% 12%;
+  }
+
+  /* The phone loop is shot darker than the desktop one; lift it to match. */
+  .presence__video {
+    object-position: 50% 30%;
+    filter: brightness(1.45) contrast(1.12) saturate(0.95);
   }
 
   .presence__room::after {
