@@ -86,9 +86,7 @@ export function Works() {
                       {art.label}
                       {art.released ? ` / ${art.released.slice(0, 4)}` : ''}
                     </p>
-                  ) : (
-                    <p className="works__pending">{'statusNote' in w ? w.statusNote : ''}</p>
-                  )}
+                  ) : null}
                 </div>
               </div>
             )

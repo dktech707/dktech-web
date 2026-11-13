@@ -53,6 +53,44 @@
   transform: scaleY(1);
 }
 
+/*
+  A wave of light runs through the shelf from the first record to the newest,
+  once every two bars. Each spine fires a moment after the one before it, so
+  the stack reads like a meter catching a signal rather than a still chart.
+*/
+.pressure__spine {
+  position: relative;
+}
+
+.pressure__spine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to top, rgb(var(--lamp-rgb) / 0.08), rgb(var(--lamp-rgb) / 0.7));
+  opacity: 0;
+}
+
+.pressure__stack[data-revealed='true'] .pressure__spine::after {
+  animation: pressure-wave calc(var(--bar) * 2) linear infinite;
+  animation-delay: calc(var(--x, 0) * var(--bar) * 1.2 - var(--bar) * 2);
+}
+
+@keyframes pressure-wave {
+  0% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  22% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* The most recent spines catch a little of the travelling light's warmth. */
 .pressure__spine:nth-last-child(-n + 15) {
   background: linear-gradient(to top, rgb(var(--ink-rgb) / 0.09), rgb(var(--lamp-rgb) / 0.22));
@@ -136,5 +174,9 @@
   .pressure__spine {
     transform: scaleY(1);
     transition: none;
+  }
+
+  .pressure__stack[data-revealed='true'] .pressure__spine::after {
+    animation: none;
   }
 }

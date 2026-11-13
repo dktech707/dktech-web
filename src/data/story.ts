@@ -83,8 +83,8 @@ export const sound = {
  * Metadata is verified against the catalogue master, except where a release
  * came after it. "Groove Within" came out on the Extraction EP (ITM Recordings,
  * 25 September 2026, ISRC GBKQU2682806, from the artist's registration
- * records); the catalogue carries it through the hand file. The cover is not
- * on this site yet, so its frame stays empty and says so.
+ * records); the catalogue carries it through the hand file, and its sleeve is
+ * the artwork the label delivered to the stores (src/data/covers.ts).
  */
 export const works = [
   {
@@ -111,12 +111,11 @@ export const works = [
     id: 'groove-within',
     number: '03',
     title: 'Groove Within',
-    artefact: null,
+    artefact: 'extraction',
     tempo: null,
     notes: ['Percussion', 'Hardgroove', 'Drum riffing'],
-    line: 'The clearest example of how he builds rhythm.',
+    line: 'The clearest example of how he builds rhythm. From the Extraction EP.',
     status: 'released' as const,
-    statusNote: 'Released on the Extraction EP, ITM Recordings, 25 September 2026.',
   },
 ] as const
 

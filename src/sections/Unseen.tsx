@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Chapter } from '@/components/Chapter'
 import { Frame } from '@/components/Frame'
 import { releaseChain, unseen } from '@/data/story'
@@ -6,7 +6,10 @@ import { artefactById } from '@/data/covers'
 import { meta } from '@/data/catalogue'
 import { count, shortDate } from '@/lib/format'
 import { useReducedMotion, useReveal, useSectionProgress } from '@/lib/hooks'
+import { BPM, onFrame } from '@/lib/motion'
 import './Unseen.css'
+
+const BEAT_MS = 60_000 / BPM
 
 /**
  * What one release actually costs.
@@ -33,6 +36,36 @@ export function Unseen() {
 
   // A real release, shown as the finished object the work disappears behind.
   const record = artefactById['controlled-aggression']
+
+  /*
+    Once the stack has come apart, a playhead walks down the thirteen steps,
+    one per beat at the site's tempo, and starts again: the chain is something
+    that runs for every record, not a diagram.
+  */
+  useEffect(() => {
+    const list = stackRef.current
+    if (!list || reduced) return
+    const layers = Array.from(list.querySelectorAll<HTMLElement>('.unseen__layer'))
+    let visible = false
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry?.isIntersecting ?? false
+    })
+    io.observe(list)
+    let current = -1
+    const stop = onFrame((time) => {
+      if (!visible) return
+      const open = Number(list.style.getPropertyValue('--open') || 0)
+      const next = open > 0.6 ? Math.floor(time / BEAT_MS) % layers.length : -1
+      if (next === current) return
+      layers[current]?.removeAttribute('data-hot')
+      layers[next]?.setAttribute('data-hot', '')
+      current = next
+    })
+    return () => {
+      io.disconnect()
+      stop()
+    }
+  }, [reduced])
 
   const sectionRef = useSectionProgress<HTMLElement>((p) => {
     if (reduced) return

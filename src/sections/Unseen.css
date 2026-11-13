@@ -172,6 +172,31 @@
   white-space: nowrap;
 }
 
+/* The playhead: the step being worked on now. */
+.unseen__layer-step,
+.unseen__layer-n {
+  transition:
+    color 520ms var(--ease-out),
+    text-shadow 520ms var(--ease-out);
+}
+
+.unseen__layer[data-hot] .unseen__layer-step {
+  color: var(--lamp);
+  text-shadow: 0 0 18px rgb(var(--lamp-rgb) / 0.45);
+  transition: none;
+}
+
+.unseen__layer[data-hot] .unseen__layer-n {
+  color: var(--lamp);
+  transition: none;
+}
+
+.unseen__layer[data-hot] .unseen__layer-face {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--lamp-rgb) / 0.4),
+    0 0 40px rgb(var(--lamp-rgb) / 0.12);
+}
+
 .unseen__layer-note {
   grid-column: 3;
   font-size: var(--t-mono);

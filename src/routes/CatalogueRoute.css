@@ -41,6 +41,12 @@
   line-height: 1.65;
 }
 
+/* The sleeves behind the rows, moving past above the numbers. */
+.cat__drift {
+  --drift-size: clamp(5.5rem, 4.6rem + 3.6vw, 8.5rem);
+  margin-block: 0.5rem;
+}
+
 .cat__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

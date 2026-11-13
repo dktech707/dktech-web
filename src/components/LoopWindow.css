@@ -1,0 +1,42 @@
+.loopwin {
+  position: relative;
+  width: min(100%, 22rem);
+  aspect-ratio: 9 / 16;
+  max-height: 78svh;
+  overflow: hidden;
+  background: rgb(8 8 10);
+  box-shadow: 0 30px 80px rgb(1 1 2 / 0.7);
+}
+
+.loopwin__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+.loopwin[data-playing='true'] .loopwin__video {
+  opacity: 0.9;
+}
+
+/* The room stays dark at the edges, the same falloff as the hero windows. */
+.loopwin::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 45%, transparent 55%, rgb(1 1 2 / 0.7)),
+    linear-gradient(to top, rgb(1 1 2 / 0.75), transparent 30%);
+}
+
+.loopwin__label {
+  position: absolute;
+  z-index: 1;
+  left: 0.85rem;
+  bottom: 0.75rem;
+  color: rgb(var(--ink-rgb) / 0.78);
+}

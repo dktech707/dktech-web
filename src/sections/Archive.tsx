@@ -21,6 +21,7 @@ const SHELF = artefacts
         // Already standing as artefacts earlier in the page.
         'touriste',
         'fresh-king',
+        'extraction',
         // Already on the shelf in the People chapter.
         'mastermind',
         'nine-seals',

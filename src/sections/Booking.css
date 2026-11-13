@@ -15,6 +15,25 @@
   gap: var(--stack-lg);
 }
 
+/* The address and the details, with one window of a real night beside them. */
+.booking__stage {
+  display: grid;
+  gap: var(--stack-lg);
+}
+
+.booking__loop {
+  justify-self: center;
+  width: min(68vw, 17rem);
+}
+
+@media (min-width: 1000px) {
+  .booking__stage {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(2rem, 1rem + 3vw, 5rem);
+  }
+}
+
 .booking__body {
   display: grid;
   gap: var(--stack-lg);

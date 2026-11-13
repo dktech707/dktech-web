@@ -1,5 +1,6 @@
 import { Chapter } from '@/components/Chapter'
 import { Frame } from '@/components/Frame'
+import { CoverDrift } from '@/components/CoverDrift'
 import { begins, nameOrigin, now } from '@/data/story'
 import { meta } from '@/data/catalogue'
 import { count } from '@/lib/format'
@@ -53,6 +54,8 @@ export function Before() {
             ))}
           </ul>
         </div>
+
+        <CoverDrift className="before__drift" />
       </section>
 
       <section id="begins" className="begins" data-light="begins" aria-label="Production begins">

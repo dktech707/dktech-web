@@ -1,5 +1,6 @@
 import { Frame } from '@/components/Frame'
 import { SectionHead } from '@/components/SectionHead'
+import { StepGrid } from '@/components/StepGrid'
 import { artist, soundTerritory, statements } from '@/data/site'
 import { sound as soundStory } from '@/data/story'
 import { useReveal } from '@/lib/hooks'
@@ -55,6 +56,10 @@ export function Sound() {
               ratio="4 / 5"
             />
           </figure>
+        </div>
+
+        <div className="sound__groove">
+          <StepGrid />
         </div>
 
         <div className="sound__tempo" ref={tempoRef}>

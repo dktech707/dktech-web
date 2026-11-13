@@ -2,6 +2,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { displayLabels, labels, loadFullCatalogue, meta, releases, sourcesSentence, years, type Entry } from '@/data/catalogue'
 import { ListeningProvider, PlayControl } from '@/components/Listening'
+import { CoverDrift } from '@/components/CoverDrift'
 import { count, duration, longDuration, pad, shortDate } from '@/lib/format'
 import { useDebounced } from '@/lib/hooks'
 import './CatalogueRoute.css'
@@ -136,6 +137,8 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
           Every DKTech track since September 2024: originals, remixes and compilation appearances, {count(meta.rows)}{' '}
           entries on {count(meta.distinctLabels)} labels. Search by title, label, ISRC or catalogue number.
         </p>
+
+        <CoverDrift rows={1} className="cat__drift" />
 
         <dl className="cat__meta">
           <div>

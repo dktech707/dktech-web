@@ -21,7 +21,7 @@ const SPINES = months.flatMap((m, mi) =>
     h: Math.min(1, 0.4 + (m.count / 20) * 0.5 + ((mi * 7 + k * 13) % 5) * 0.04),
     lit: months.length > 1 ? mi / (months.length - 1) : 1,
   })),
-)
+).map((s, i, all) => ({ ...s, x: all.length > 1 ? i / (all.length - 1) : 0 }))
 
 export function CataloguePressure() {
   const ref = useReveal<HTMLDivElement>({ threshold: 0.14 })
@@ -47,7 +47,7 @@ export function CataloguePressure() {
             <span
               key={s.key}
               className="pressure__spine"
-              style={{ '--h': s.h.toFixed(3), '--lit': s.lit.toFixed(3) } as React.CSSProperties}
+              style={{ '--h': s.h.toFixed(3), '--lit': s.lit.toFixed(3), '--x': s.x.toFixed(4) } as React.CSSProperties}
             />
           ))}
           <span className="pressure__shelf" aria-hidden="true" />

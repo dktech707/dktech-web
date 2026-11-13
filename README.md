@@ -146,8 +146,9 @@ Two facts are kept apart on every artefact, in `src/data/covers.ts`:
 supplied source says which DKTech recording it carries, and standing it there
 would imply one.
 
-*Groove Within* has no artwork and is not in the catalogue master. Its frame is
-empty and says so.
+*Groove Within* is not in the catalogue master. Its sleeve, the Extraction EP
+(ITM040), is the artwork ITM Recordings delivered to the stores, read from the
+release's Deezer page with `scripts/add-store-cover.mjs`.
 
 ## The idea
 

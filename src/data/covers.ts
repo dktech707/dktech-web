@@ -170,6 +170,21 @@ export const artefacts: Artefact[] = [
     kind: 'sleeve',
   },
   {
+    /*
+      Not in the private covers/ folder: the artwork ITM Recordings delivered
+      to the stores, read from the release's Deezer page (UPC 5054290129571).
+      The date and catalogue number are printed on the release itself.
+    */
+    id: 'extraction',
+    imageId: 'cover-extraction',
+    title: 'Extraction EP',
+    credit: 'DKTech',
+    label: 'ITM Recordings',
+    catalogNumber: 'ITM040',
+    released: '2026-09-25',
+    kind: 'sleeve',
+  },
+  {
     id: 'outlast',
     imageId: 'vinyl-outlast',
     title: 'Outlast EP',

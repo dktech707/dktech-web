@@ -3,6 +3,11 @@
   padding-block: var(--stack-xl);
 }
 
+/* The records he talks about, moving past under the facts. Full bleed. */
+.before__drift {
+  margin-top: var(--stack-lg);
+}
+
 .before__inner {
   display: grid;
   gap: var(--stack-lg);

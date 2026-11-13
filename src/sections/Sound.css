@@ -68,6 +68,24 @@
   justify-self: end;
 }
 
+.sound__groove {
+  width: min(100%, 56rem);
+}
+
+/* The working band pulses on the beat while the grid above it plays. */
+.sound__tempo[data-revealed='true'] .sound__axis-band {
+  animation: sound-beat calc(var(--bar) / 4) ease-out infinite;
+}
+
+@keyframes sound-beat {
+  0% {
+    box-shadow: 0 0 34px rgb(var(--lamp-rgb) / 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px rgb(var(--lamp-rgb) / 0.12);
+  }
+}
+
 .sound__axis {
   position: relative;
   height: 3.25rem;
@@ -150,5 +168,9 @@
 
   .sound__axis-band {
     transform: scaleX(1);
+  }
+
+  .sound__tempo[data-revealed='true'] .sound__axis-band {
+    animation: none;
   }
 }
