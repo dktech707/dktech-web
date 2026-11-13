@@ -1,0 +1,67 @@
+name: Sync releases
+
+# Once a day (and on demand from the Actions tab) this asks Spotify for every
+# track that credits DKTech. If the list changed, the new data is checked,
+# built and committed to main, and the Vercel project redeploys from that
+# commit. Until the three Spotify secrets exist, the job does nothing.
+
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-releases
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch releases from Spotify
+        id: sync
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_ARTIST_ID: ${{ secrets.SPOTIFY_ARTIST_ID }}
+        run: |
+          if [ -z "$SPOTIFY_CLIENT_ID" ] || [ -z "$SPOTIFY_CLIENT_SECRET" ] || [ -z "$SPOTIFY_ARTIST_ID" ]; then
+            echo "Spotify secrets are not set yet. Nothing to sync."
+            echo "ran=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          npm run sync:spotify
+          echo "ran=true" >> "$GITHUB_OUTPUT"
+
+      - name: Check and build
+        if: steps.sync.outputs.ran == 'true'
+        run: |
+          npm run merge
+          npm run lint:dashes
+          npm test
+          npm run typecheck
+          npm run build
+
+      - name: Commit when the release list changed
+        if: steps.sync.outputs.ran == 'true'
+        run: |
+          if git diff --quiet -- src/data; then
+            echo "No new releases."
+            exit 0
+          fi
+          git add src/data/releases.spotify.json src/data/catalogue.summary.json src/data/catalogue.full.json
+          git -c user.name=dktech707 -c user.email=dktech707@gmail.com commit -m "Sync releases from Spotify"
+          git push origin HEAD:main

@@ -26,6 +26,67 @@ npm install && npm run dev
 
 | Script | What it does |
 | --- | --- |
+| `npm run dev` | Merges the catalogue sources, then starts the Vite dev server |
+| `npm run build` | Merges, typechecks, then builds for production |
+| `npm test` | Unit tests for the merge and the Spotify parser (node:test, no extra packages) |
+| `npm run sync:spotify` | Fetches the artist's tracks from Spotify (needs the three variables below) |
+| `npm run lint:dashes` | Fails on any em dash or en dash in source, data or copy |
+
+## Releases: automatic and by hand
+
+The catalogue the site shows is joined from three files in `src/data`, keyed
+by ISRC:
+
+| File | Who writes it | What it adds |
+| --- | --- | --- |
+| `catalogue.master.json` | `npm run data`, from the private 138-row release master | the base catalogue; never overwritten |
+| `releases.spotify.json` | the daily Spotify sync | new tracks the master does not have, and empty master fields such as running time or barcode |
+| `releases.manual.json` | Dino, by hand | new tracks, corrections that win over every other source, and tracks to hide |
+
+`npm run merge` (run before every dev start and every build) writes the two
+files the site reads. Every row records where it came from, and the catalogue
+page says so per row ("Release master; running time from Spotify"), so a
+figure on the page never claims more than its sources.
+
+**Automatic.** `.github/workflows/sync-releases.yml` runs once a day and on
+demand from the Actions tab. It asks the Spotify Web API for every album,
+single, compilation and appearance of the artist, keeps only the tracks that
+credit the artist, checks and builds the result, and commits it to `main` when
+the list changed. Vercel deploys every commit, so a new release shows up on
+the site the day after it appears on Spotify. The job needs three repository
+secrets (Settings, Secrets and variables, Actions):
+
+| Secret | Where it comes from |
+| --- | --- |
+| `SPOTIFY_CLIENT_ID` | a free app at developer.spotify.com (Dashboard, Create app) |
+| `SPOTIFY_CLIENT_SECRET` | the same app's settings |
+| `SPOTIFY_ARTIST_ID` | the code after `/artist/` in the artist's Spotify link |
+
+Until they exist the job runs and does nothing. The sync never replaces a
+good list with an empty answer, and only writes when something changed.
+
+Since Spotify's February 2026 changes a Development Mode app works only while
+its owner's account has Premium, and albums no longer report their label: a
+track found on Spotify arrives without one, so add the label in the hand file.
+
+**By hand.** Open `src/data/releases.manual.json` on github.com, press the
+pencil, edit and commit. The file explains itself:
+
+```json
+{
+  "add": [{ "isrc": "GBKQU2600000", "title": "Track title", "labels": ["Label name"], "releaseDate": "2026-11-20" }],
+  "override": { "GBKQU2672241": { "labels": ["Resilient Recordings"] } },
+  "hide": []
+}
+```
+
+`add` creates a row, `override` corrects fields of an existing row (the hand
+value always wins), `hide` removes a row from the site. A mistake in the file,
+such as an unknown field or a date not written as YYYY-MM-DD, stops the build
+with a message naming it, so the live site stays as it was.
+
+| Script | What it does |
+| --- | --- |
 | `npm run data` | Parses `07_CATALOGUE/DKTech_FULL_CATALOG_138_MASTER.txt` into `src/data/catalogue.summary.json` and `catalogue.full.json` |
 | `npm run media` | Reads the originals in `03_CORE_PORTRAIT`, `04_LIVE_PHOTOS`, `05_PROOF`, `06_ECOSYSTEM` and `covers/`; writes responsive WebP into `public/media` and copies the two needed font subsets into `public/fonts` |
 | `npm run dev` | Vite dev server |
@@ -192,12 +253,19 @@ whole path goes live with no UI change. See `public/audio/README.md`.
 ```
 index.html
 vite.config.ts
+.github/workflows/
+  sync-releases.yml       daily Spotify sync, check, build and commit
 scripts/
-  build-catalogue.mjs     138-row master -> typed JSON
+  build-catalogue.mjs     138-row master -> catalogue.master.json, then the merge
+  merge-catalogue.mjs     master + Spotify + hand file -> the files the site reads
+  sync-spotify.mjs        Spotify Web API -> releases.spotify.json
+  lib/                    merge rules, summary figures, Spotify parser (pure, tested)
+  test/                   node:test suites and fixtures
   prepare-media.mjs       originals -> public/media, font subsets -> public/fonts
   check-dashes.mjs        the dash rule
 src/
-  data/     site.ts (verified copy and facts), catalogue.ts (typed view)
+  data/     site.ts (verified copy and facts), catalogue.ts (typed view),
+            catalogue.master.json, releases.spotify.json, releases.manual.json
   lib/      motion.ts (one rAF loop), light.ts (the travelling light), hooks, audio, format
   components/  LightField, Relit, Frame, Nav, SectionHead, Listening, Colophon
   sections/    Presence, Sound, Current, CataloguePressure, Transmission,

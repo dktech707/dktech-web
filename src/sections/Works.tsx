@@ -10,9 +10,8 @@ import './Works.css'
  * Three works the artist chose himself.
  *
  * Not a ranking and not three release cards. Three objects at three depths in
- * one room, each with its own light. The third has no artwork, because none
- * exists yet: the frame is empty and says so. That is the honest state of an
- * unreleased track and it is the most autobiographical thing in the section.
+ * one room, each with its own light. A work whose cover the site does not hold
+ * keeps an empty frame that says so, rather than a stand in graphic.
  */
 export function Works() {
   const reduced = useReducedMotion()
@@ -59,12 +58,13 @@ export function Works() {
                     />
                   ) : (
                     /*
-                      No artwork exists for this track. Rather than substitute a
-                      placeholder graphic, the frame stays empty and says why.
+                      The site holds no cover for this track. Rather than
+                      substitute a placeholder graphic, the frame stays empty
+                      and says why.
                     */
-                    <div className="works__empty" role="img" aria-label={`No artwork exists yet for ${w.title}`}>
+                    <div className="works__empty" role="img" aria-label={`The cover for ${w.title} is not on this site yet`}>
                       <span className="works__empty-mark" aria-hidden="true" />
-                      <span className="works__empty-text data">no artwork yet</span>
+                      <span className="works__empty-text data">cover not added yet</span>
                     </div>
                   )}
                 </div>

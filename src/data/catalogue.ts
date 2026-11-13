@@ -1,10 +1,13 @@
 /**
  * Typed view over the generated catalogue data.
  *
- * Both JSON files come from scripts/build-catalogue.mjs, which reads the
- * 138-row master file in 07_CATALOGUE. Neither is hand-edited. If a field is
- * null here, the master file was silent about it, and nothing in the UI is
- * allowed to substitute a plausible value for a missing one.
+ * Both JSON files come from scripts/merge-catalogue.mjs, which joins the
+ * 138-row release master with the tracks found on Spotify and the hand file
+ * (src/data/releases.manual.json). Neither output is hand-edited. Every row
+ * says where it came from (origin), and every field a second source filled or
+ * replaced is named in fieldSources. If a field is null here, no source stated
+ * it, and nothing in the UI is allowed to substitute a plausible value for a
+ * missing one.
  *
  * The summary is small and always loaded. The full row set carries every ISRC,
  * barcode, writer credit and verification note, and is fetched only when the
@@ -12,6 +15,7 @@
  */
 
 import summary from './catalogue.summary.json'
+import { shortDate } from '@/lib/format'
 
 export type SourceBlock = {
   master: string
@@ -63,7 +67,15 @@ export type Entry = {
   trackNumber: number | null
   year: number | null
   needsReview: boolean
+  origin?: Origin
+  fieldSources?: Partial<Record<string, 'spotify' | 'manual'>>
+  /** Where a hand correction comes from, as written in the hand file. */
+  handSources?: string[]
+  spotifyUrl?: string
 }
+
+/** Where a row came from: the release master, Spotify, or the hand file. */
+export type Origin = 'master' | 'spotify' | 'manual'
 
 /** Just enough of an entry to list it. */
 export type LatestEntry = {
@@ -102,6 +114,9 @@ export type CatalogueMeta = {
   firstReleaseDate: string | null
   latestReleaseDate: string | null
   identifiedReleases: number
+  rowsBySource: Record<Origin, number>
+  hiddenRows: number
+  spotifySyncedAt: string | null
 }
 
 type SummaryFile = {
@@ -132,6 +147,59 @@ let fullPromise: Promise<Entry[]> | null = null
 export function loadFullCatalogue(): Promise<Entry[]> {
   fullPromise ??= import('./catalogue.full.json').then((m) => (m.default as unknown as { entries: Entry[] }).entries)
   return fullPromise
+}
+
+/**
+ * One sentence naming where the figures come from, so a number on the page
+ * never claims more than its sources.
+ */
+export function sourcesSentence(): string {
+  const parts = [`Counted from the release master, updated ${shortDate(meta.sourceBuildDate)}`]
+  const { spotify, manual } = meta.rowsBySource
+  if (meta.spotifySyncedAt) parts.push(`tracks found on Spotify (last change ${shortDate(meta.spotifySyncedAt.slice(0, 10))})`)
+  if (manual) parts.push(`${manual} ${manual === 1 ? 'entry' : 'entries'} added by hand`)
+  if (!meta.spotifySyncedAt && spotify) parts.push(`${spotify} tracks found on Spotify`)
+  const last = parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}` : parts[0]
+  return `${last}.`
+}
+
+const FIELD_WORDS: Record<string, string> = {
+  title: 'title',
+  artists: 'artists',
+  collaborators: 'collaborators',
+  labels: 'label',
+  distributors: 'distributor',
+  releaseDate: 'date',
+  release: 'release',
+  catalogNumber: 'catalogue number',
+  upc: 'barcode',
+  trackNumber: 'track number',
+  durationSeconds: 'running time',
+  genre: 'genre',
+  writers: 'writers',
+  isrcs: 'ISRC',
+}
+
+/** Where one row came from, in words: "Release master; running time from Spotify". */
+export function rowSource(entry: Entry): string {
+  const origin = entry.origin ?? 'master'
+  const base = origin === 'spotify' ? 'Found on Spotify' : origin === 'manual' ? 'Added by hand' : 'Release master'
+  const by = (src: 'spotify' | 'manual') =>
+    Object.entries(entry.fieldSources ?? {})
+      .filter(([, s]) => s === src)
+      .map(([f]) => FIELD_WORDS[f] ?? f)
+  const spotify = by('spotify')
+  const manual = by('manual')
+  const from = entry.handSources?.length ? ` from ${entry.handSources.join(' and ')}` : ''
+  const checkedOnly = origin !== 'manual' && !manual.length && from
+  return [
+    origin === 'manual' && from ? `${base}${from}` : base,
+    spotify.length ? `${spotify.join(', ')} from Spotify` : null,
+    manual.length ? `${manual.join(', ')} corrected by hand${from}` : null,
+    checkedOnly ? `checked by hand against ${entry.handSources!.join(' and ')}` : null,
+  ]
+    .filter(Boolean)
+    .join('; ')
 }
 
 /** The most recent entries, grouped so one release day reads as one event. */

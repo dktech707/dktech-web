@@ -1,0 +1,139 @@
+{
+  "_readme": [
+    "Hand corrections to the DKTech catalogue. Edit this file on github.com and commit; the site rebuilds by itself.",
+    "add: a track that is in neither the release master nor Spotify. Needs isrc and title. Optional fields: artists, collaborators, labels, distributors, releaseDate (YYYY-MM-DD), release, catalogNumber, upc, trackNumber, durationSeconds, genre, writers, isrcs (every code of the row, including isrc), source.",
+    "override: fix fields of a row that already exists, keyed by an ISRC only that row carries. The value written here always wins over the master and Spotify. isrcs replaces the row's code list; null clears release, catalogNumber, upc, trackNumber, durationSeconds, genre, writers or releaseDate.",
+    "source: where the correction comes from, shown with the row on the catalogue page. resolved: true clears the row's review flags because the source settles them.",
+    "hide: ISRC codes that must not appear on the site.",
+    "Example for add: {\"isrc\": \"GBKQU2600000\", \"title\": \"Track title\", \"labels\": [\"Label name\"], \"releaseDate\": \"2026-11-20\"}",
+    "Example for override: {\"GBKQU2672241\": {\"labels\": [\"Resilient Recordings\"], \"source\": \"the label's release sheet\"}}",
+    "A mistake in this file (an unknown field, a date in the wrong form, a key two rows carry) stops the build with a message naming it, so the live site stays as it was."
+  ],
+  "add": [
+    {
+      "isrc": "GBKQU2682803",
+      "title": "Extraction",
+      "artists": ["DKTech"],
+      "labels": ["ITM Recordings"],
+      "releaseDate": "2026-09-25",
+      "release": "Extraction EP",
+      "upc": "5054290129571",
+      "trackNumber": 1,
+      "durationSeconds": 386,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "GBKQU2682804",
+      "title": "X-1312",
+      "artists": ["DKTech"],
+      "labels": ["ITM Recordings"],
+      "releaseDate": "2026-09-25",
+      "release": "Extraction EP",
+      "upc": "5054290129571",
+      "trackNumber": 2,
+      "durationSeconds": 370,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "GBKQU2682805",
+      "title": "Moonstone",
+      "artists": ["DKTech"],
+      "labels": ["ITM Recordings"],
+      "releaseDate": "2026-09-25",
+      "release": "Extraction EP",
+      "upc": "5054290129571",
+      "trackNumber": 3,
+      "durationSeconds": 332,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "GBKQU2682806",
+      "title": "Groove Within",
+      "artists": ["DKTech"],
+      "labels": ["ITM Recordings"],
+      "releaseDate": "2026-09-25",
+      "release": "Extraction EP",
+      "upc": "5054290129571",
+      "trackNumber": 4,
+      "durationSeconds": 315,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "CA5KR2652023",
+      "title": "Odyssey - DKTech Remix",
+      "artists": ["Alternoize Dj", "Aviell", "DKTech"],
+      "labels": ["LETS TECHNO records"],
+      "releaseDate": "2026-09-14",
+      "release": "Odyssey",
+      "upc": "612891011869",
+      "trackNumber": 2,
+      "durationSeconds": 350,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "US83Z2661273",
+      "title": "Continuation - DKTech Remix",
+      "artists": ["Fin Cormack", "DKTech"],
+      "labels": ["STØK Recordings"],
+      "releaseDate": "2026-10-09",
+      "release": "Continuity of Momentum",
+      "upc": "853567757418",
+      "trackNumber": 4,
+      "durationSeconds": 312,
+      "source": "the artist's registration records, checked on Deezer"
+    },
+    {
+      "isrc": "GBRKQ2550936",
+      "isrcs": ["GBRKQ2550936", "QT62W2590667"],
+      "title": "Alisa Dinova",
+      "artists": ["DKTech"],
+      "labels": ["ACETON Music", "Aceton Music"],
+      "distributors": ["AudioSalad"],
+      "releaseDate": "2025-02-16",
+      "source": "the release master, split from the 2026 Groove Protocol release"
+    }
+  ],
+  "override": {
+    "NLHR22501075": {
+      "title": "Feel The Groove",
+      "isrcs": ["NLHR22501075"],
+      "durationSeconds": 303,
+      "source": "the Rhythmic Beatz Records catalogue master (RBR004)",
+      "resolved": true
+    },
+    "NLHR22501076": {
+      "source": "the Rhythmic Beatz Records catalogue master (RBR004)",
+      "resolved": true
+    },
+    "HRA102611481": {
+      "isrcs": ["HRA102611481"],
+      "labels": ["Groove Protocol"],
+      "distributors": [],
+      "releaseDate": "2026-07-10",
+      "source": "the Groove Protocol catalogue master (GP-X014)",
+      "resolved": true
+    },
+    "QZES52515182": {
+      "isrcs": ["QZES52515182", "QT3EY2476223"],
+      "source": "the Rhythmic Beatz Records catalogue master (NLHR22500924 is Wolven Storm XR04)"
+    },
+    "NLHR22500924": {
+      "title": "Wolven Storm XR04",
+      "source": "the Rhythmic Beatz Records catalogue master (RBR003)",
+      "resolved": true
+    },
+    "HRA102611275": {
+      "title": "Cannibals",
+      "source": "the Groove Protocol catalogue master (GP-X001)"
+    },
+    "HRA102611483": {
+      "durationSeconds": 390,
+      "source": "the Groove Protocol catalogue master (GP-X014)"
+    },
+    "HRA102611423": {
+      "title": "Borderline - RE_MAART Remix",
+      "source": "the Groove Protocol catalogue master (GP-X009)"
+    }
+  },
+  "hide": []
+}

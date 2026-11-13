@@ -83,9 +83,9 @@ export const facts: readonly Fact[] = [
   },
   {
     id: 'groove-within',
-    status: 'USER_CONFIRMED',
-    statement: 'Groove Within is part of the Extraction EP on ITM Recordings, due September 2026. Percussion / hardgroove / drum riffing.',
-    note: 'Brief. Not in the catalogue master. No exact day confirmed, so a month only. ITM Recordings is not among the current 17 catalogue labels (forthcoming).',
+    status: 'VERIFIED',
+    statement: 'Groove Within is on the Extraction EP, ITM Recordings, released 25 September 2026. Percussion / hardgroove / drum riffing.',
+    note: 'ISRC GBKQU2682806, UPC 5054290129571, 5:15, from the artist\'s HUZIP and ZAMP sheets (September 2026), checked on the Deezer API on 13 November 2026. Not in the 138-row master; the catalogue carries it through releases.manual.json. The cover is not on the site yet.',
     public: true,
   },
 

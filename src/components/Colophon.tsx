@@ -1,6 +1,5 @@
 import { artist, booking } from '@/data/site'
-import { meta } from '@/data/catalogue'
-import { shortDate } from '@/lib/format'
+import { sourcesSentence } from '@/data/catalogue'
 import './Colophon.css'
 
 export function Colophon() {
@@ -15,8 +14,7 @@ export function Colophon() {
         </p>
 
         <p className="colophon__note data">
-          Catalogue figures are counted from the release master, updated {shortDate(meta.sourceBuildDate)}.
-          Nothing on this page is estimated.
+          Catalogue figures. {sourcesSentence()} Nothing on this page is estimated.
         </p>
 
         <a className="colophon__mail" href={`mailto:${booking.email}`}>

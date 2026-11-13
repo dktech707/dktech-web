@@ -8,10 +8,13 @@
     "data": "node scripts/build-catalogue.mjs",
     "media": "node scripts/prepare-media.mjs",
     "prepare:all": "npm run data && npm run media",
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "merge": "node scripts/merge-catalogue.mjs",
+    "sync:spotify": "node scripts/sync-spotify.mjs",
+    "dev": "node scripts/merge-catalogue.mjs && vite",
+    "build": "node scripts/merge-catalogue.mjs && tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "test": "node --test \"scripts/test/*.test.mjs\"",
     "lint:dashes": "node scripts/check-dashes.mjs"
   },
   "dependencies": {

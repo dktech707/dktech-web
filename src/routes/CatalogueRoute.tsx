@@ -1,6 +1,6 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { labels, loadFullCatalogue, meta, releases, years, type Entry } from '@/data/catalogue'
+import { labels, loadFullCatalogue, meta, releases, rowSource, sourcesSentence, years, type Entry } from '@/data/catalogue'
 import { ListeningProvider, PlayControl, useListening } from '@/components/Listening'
 import { count, duration, longDuration, pad, shortDate } from '@/lib/format'
 import { useDebounced } from '@/lib/hooks'
@@ -134,9 +134,12 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
         <h1 className="cat__title">Catalogue</h1>
 
         <p className="cat__lead">
-          All {count(meta.rows)} entries as they appear in the master file, with the labels, dates, identifiers and
-          verification flags exactly as recorded. Empty fields mean the source was silent, not that a value was left
-          out.
+          All {count(meta.rows)} entries
+          {meta.rowsBySource.spotify || meta.rowsBySource.manual
+            ? `: ${count(meta.rowsBySource.master)} from the release master, ${count(meta.rowsBySource.spotify)} found on Spotify and ${count(meta.rowsBySource.manual)} added by hand,`
+            : ' as they appear in the master file,'}{' '}
+          with the labels, dates, identifiers and verification flags exactly as recorded. Empty fields mean the source
+          was silent, not that a value was left out.
         </p>
 
         <dl className="cat__meta">
@@ -257,7 +260,7 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
           </p>
         ) : filtered.length === 0 ? (
           <p className="cat__empty">
-            Nothing in the catalogue matches that. The master file holds {count(meta.rows)} rows and no others.
+            Nothing in the catalogue matches that. The catalogue holds {count(meta.rows)} rows and no others.
           </p>
         ) : (
           <ol className="cat__list">
@@ -301,7 +304,7 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
       </section>
 
       <p className="shell cat__source data">
-        Counted from the release master, updated {shortDate(meta.sourceBuildDate)}. Nothing here is estimated.
+        {sourcesSentence()} Nothing here is estimated.
       </p>
     </div>
   )
@@ -430,6 +433,20 @@ function Row({ entry, open, onToggle }: { entry: Entry; open: boolean; onToggle:
             <div>
               <dt className="label">Status</dt>
               <dd className="data">{entry.status.join(' / ')}</dd>
+            </div>
+            <div>
+              <dt className="label">Source</dt>
+              <dd>
+                {rowSource(entry)}
+                {entry.spotifyUrl ? (
+                  <>
+                    {' / '}
+                    <a href={entry.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                      Spotify
+                    </a>
+                  </>
+                ) : null}
+              </dd>
             </div>
           </dl>
 
