@@ -95,7 +95,7 @@ export const documentation: readonly EcoNode[] = [
     name: 'Groove Protocol Archive',
     role: 'A living record',
     status: 'building',
-    body: 'Not nostalgia and not a memorial. The names of people who were present and contributed stay documented and findable. Twenty real names matter more than two hundred invented ones.',
+    body: 'A living record of the scene: the people who were there and contributed, documented and kept findable.',
   },
 ]
 

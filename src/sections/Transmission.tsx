@@ -141,12 +141,6 @@ export function Transmission() {
         </div>
       </div>
 
-      <div className="shell trans__foot">
-        <p className="trans__rooms-note">
-          These are documentary photographs. No venue, date or set time was
-          recorded with them, so none is shown here.
-        </p>
-      </div>
     </section>
   )
 }

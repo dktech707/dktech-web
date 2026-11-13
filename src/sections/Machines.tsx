@@ -61,11 +61,14 @@ export function Machines() {
 
     const root = document.documentElement
 
-    const apply = (p: number) => {
-      // 0 at the top of the descent, 1 once the room is fully behind the dark.
+    const apply = (scroll: number) => {
+      // The page ends with the room still faintly there, not on a black screen
+      // that reads as if nothing loaded: the descent stops a little over half
+      // way into the dark.
+      const p = scroll * 0.62
       room.style.setProperty('--descent', p.toFixed(3))
-      // The interface goes before the machines do.
-      root.style.setProperty('--ui-fade', clamp(1 - range(p, 0.04, 0.3)).toFixed(3))
+      // The interface dims as the room recedes, but stays usable.
+      root.style.setProperty('--ui-fade', clamp(1 - range(p, 0.04, 0.3) * 0.6).toFixed(3))
       if (markRef.current) markRef.current.style.opacity = clamp(1 - range(p, 0.02, 0.22)).toFixed(3)
 
       FRAGMENTS.forEach((f, i) => {
@@ -102,7 +105,7 @@ export function Machines() {
       <div className="machines__room" ref={roomRef}>
         <p className="machines__mark label" ref={markRef} aria-hidden="true">
           <span className="machines__tick" />
-          13
+          12
         </p>
 
         <div className="machines__stage">

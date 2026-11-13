@@ -1,5 +1,4 @@
-import { artist, booking } from '@/data/site'
-import { sourcesSentence } from '@/data/catalogue'
+import { artist, booking, links } from '@/data/site'
 import './Colophon.css'
 
 export function Colophon() {
@@ -14,7 +13,14 @@ export function Colophon() {
         </p>
 
         <p className="colophon__note data">
-          Catalogue figures. {sourcesSentence()} Nothing on this page is estimated.
+          {links.map((l, i) => (
+            <span key={l.url}>
+              {i ? ' / ' : ''}
+              <a href={l.url} target="_blank" rel="noopener noreferrer">
+                {l.label}
+              </a>
+            </span>
+          ))}
         </p>
 
         <a className="colophon__mail" href={`mailto:${booking.email}`}>

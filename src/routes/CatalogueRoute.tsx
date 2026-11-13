@@ -1,7 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { labels, loadFullCatalogue, meta, releases, rowSource, sourcesSentence, years, type Entry } from '@/data/catalogue'
-import { ListeningProvider, PlayControl, useListening } from '@/components/Listening'
+import { labels, loadFullCatalogue, meta, releases, sourcesSentence, years, type Entry } from '@/data/catalogue'
+import { ListeningProvider, PlayControl } from '@/components/Listening'
 import { count, duration, longDuration, pad, shortDate } from '@/lib/format'
 import { useDebounced } from '@/lib/hooks'
 import './CatalogueRoute.css'
@@ -79,7 +79,6 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
 
   const debounced = useDebounced(query, 120)
   const deferred = useDeferredValue(debounced)
-  const { available, ready } = useListening()
 
   const haystack = useMemo(() => buildHaystack(entries ?? []), [entries])
 
@@ -134,12 +133,8 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
         <h1 className="cat__title">Catalogue</h1>
 
         <p className="cat__lead">
-          All {count(meta.rows)} entries
-          {meta.rowsBySource.spotify || meta.rowsBySource.manual
-            ? `: ${count(meta.rowsBySource.master)} from the release master, ${count(meta.rowsBySource.spotify)} found on Spotify and ${count(meta.rowsBySource.manual)} added by hand,`
-            : ' as they appear in the master file,'}{' '}
-          with the labels, dates, identifiers and verification flags exactly as recorded. Empty fields mean the source
-          was silent, not that a value was left out.
+          Every DKTech track since September 2024: originals, remixes and compilation appearances, {count(meta.rows)}{' '}
+          entries on {count(meta.distinctLabels)} labels. Search by title, label, ISRC or catalogue number.
         </p>
 
         <dl className="cat__meta">
@@ -156,21 +151,10 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
             <dd>{count(meta.distinctLabels)}</dd>
           </div>
           <div>
-            <dt className="label">Identified releases</dt>
+            <dt className="label">Releases with full metadata</dt>
             <dd>{count(meta.identifiedReleases)}</dd>
           </div>
-          <div>
-            <dt className="label">Flagged for review</dt>
-            <dd>{count(meta.rowsNeedingReview)}</dd>
-          </div>
         </dl>
-
-        {ready && available === 0 ? (
-          <p className="cat__audio-state">
-            No audio files are installed locally, so every track shows as unplayable. Drop files into
-            {' '}<code>public/audio</code> with a manifest keyed by ISRC and the players in this list become live.
-          </p>
-        ) : null}
       </header>
 
       <div className="cat__controls">
@@ -211,9 +195,6 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
                   {y.year} <span className="chip__n">{y.count}</span>
                 </Chip>
               ))}
-              <Chip active={flagged} onClick={() => setFlagged((v) => !v)}>
-                Flagged <span className="chip__n">{meta.rowsNeedingReview}</span>
-              </Chip>
             </FilterGroup>
 
             <FilterGroup label="Sort">
@@ -282,12 +263,10 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
 
       <section className="shell cat__releases" aria-labelledby="cat-releases">
         <h2 className="cat__releases-title" id="cat-releases">
-          Identified releases
+          Releases
         </h2>
         <p className="cat__releases-note">
-          {meta.identifiedReleases} releases could be reconstructed from label source masters, complete with catalogue
-          number and barcode. The rest of the catalogue appears in the source as individual rows without a parent
-          release, so none is invented here.
+          The releases with a full label record: catalogue number, barcode and every track.
         </p>
         <ul className="cat__releases-list">
           {releases.map((r) => (
@@ -304,7 +283,7 @@ function CatalogueBody({ entries, failed }: { entries: Entry[] | null; failed: b
       </section>
 
       <p className="shell cat__source data">
-        {sourcesSentence()} Nothing here is estimated.
+        {sourcesSentence()}
       </p>
     </div>
   )
@@ -348,11 +327,6 @@ function Row({ entry, open, onToggle }: { entry: Entry; open: boolean; onToggle:
 
         <button type="button" className="cat__row-title" onClick={onToggle} aria-expanded={open}>
           <span>{entry.title}</span>
-          {entry.needsReview ? (
-            <span className="cat__flag" title="This row carries an open ISRC verification note">
-              flagged
-            </span>
-          ) : null}
         </button>
 
         <span className="cat__row-label">{entry.labels.join(', ') || <span className="cat__none">not listed</span>}</span>
@@ -387,7 +361,7 @@ function Row({ entry, open, onToggle }: { entry: Entry; open: boolean; onToggle:
             </div>
             {entry.collaborators.length ? (
               <div>
-                <dt className="label">Collaborators</dt>
+                <dt className="label">Credits</dt>
                 <dd>{entry.collaborators.join(', ')}</dd>
               </div>
             ) : null}
@@ -430,36 +404,17 @@ function Row({ entry, open, onToggle }: { entry: Entry; open: boolean; onToggle:
                 </dd>
               </div>
             ) : null}
-            <div>
-              <dt className="label">Status</dt>
-              <dd className="data">{entry.status.join(' / ')}</dd>
-            </div>
-            <div>
-              <dt className="label">Source</dt>
-              <dd>
-                {rowSource(entry)}
-                {entry.spotifyUrl ? (
-                  <>
-                    {' / '}
-                    <a href={entry.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                      Spotify
-                    </a>
-                  </>
-                ) : null}
-              </dd>
-            </div>
+            {entry.spotifyUrl ? (
+              <div>
+                <dt className="label">Listen</dt>
+                <dd>
+                  <a href={entry.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                    Spotify
+                  </a>
+                </dd>
+              </div>
+            ) : null}
           </dl>
-
-          {entry.conflicts.length ? (
-            <div className="cat__conflicts">
-              <p className="label">Verification notes</p>
-              <ul>
-                {entry.conflicts.map((c, i) => (
-                  <li key={i}>{c}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
       ) : null}
     </li>

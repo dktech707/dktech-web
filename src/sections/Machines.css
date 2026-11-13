@@ -4,7 +4,7 @@
 */
 .machines {
   position: relative;
-  height: 320vh;
+  height: 180vh;
   background: var(--void);
 }
 
@@ -219,7 +219,7 @@
 
 @media (max-width: 640px) {
   .machines {
-    height: 300vh;
+    height: 170vh;
   }
 
   .machines__layer--deck {

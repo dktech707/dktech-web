@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SectionHead } from '@/components/SectionHead'
 import { latest, meta, months } from '@/data/catalogue'
-import { longDuration } from '@/lib/format'
 import { useReveal } from '@/lib/hooks'
 import './CataloguePressure.css'
 
@@ -34,8 +33,8 @@ export function CataloguePressure() {
         <SectionHead index="05 / Catalogue" title="What accumulated" id="catalogue-title" variant="quiet" />
 
         <p className="pressure__lead">
-          Since 2024, {meta.rows} entries across {meta.distinctLabels} labels. Not a chart. A stack that keeps getting
-          taller, one release at a time.
+          Since September 2024, {meta.rows} catalogue entries on {meta.distinctLabels} labels, one mark for each, in the
+          order they came out.
         </p>
 
         <div
@@ -57,10 +56,6 @@ export function CataloguePressure() {
         <div className="pressure__foot">
           <div className="pressure__foot-text">
             <p className="pressure__recent data">Most recent: {recent.join(', ')}.</p>
-            <p className="pressure__note">
-              A row is a catalogue entry, not a guaranteed separate recording. {meta.rowsWithDuration} of them carry a
-              running time, {longDuration(meta.totalKnownSeconds)} of music in total.
-            </p>
           </div>
 
           <Link className="pressure__cta" to="/catalogue">

@@ -81,26 +81,21 @@
 
 @media (min-width: 760px) {
   .cat__meta {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 /* ---- Controls ---- */
 
+/*
+  The search and filters sit above the list and scroll away with the page.
+  They used to stick to the top as a see-through panel, which let the rows run
+  underneath the chips and, with eighteen labels, covered half the screen.
+*/
 .cat__controls {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  /*
-    Nearly transparent on purpose. The lighting layer behind the page is fixed,
-    so a solid dark bar here would read as a band across the middle of the
-    page. Glass keeps the same air on both sides of the edge.
-  */
-  background: linear-gradient(to bottom, rgb(4 4 5 / 0.5) 0%, rgb(4 4 5 / 0.62) 70%, rgb(4 4 5 / 0));
-  backdrop-filter: blur(22px) saturate(1.1);
-  -webkit-backdrop-filter: blur(22px) saturate(1.1);
-  /* Enough clearance for the fixed header, and no more. */
-  padding-top: clamp(3.25rem, 2rem + 3vw, 4.25rem);
+  position: relative;
+  z-index: 2;
+  padding-top: var(--stack-sm);
   padding-bottom: 1.25rem;
   margin-top: var(--stack-sm);
 }

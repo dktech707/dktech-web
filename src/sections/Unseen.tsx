@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Chapter } from '@/components/Chapter'
 import { Frame } from '@/components/Frame'
-import { releaseChain, scene, unseen } from '@/data/story'
+import { releaseChain, unseen } from '@/data/story'
 import { artefactById } from '@/data/covers'
 import { meta } from '@/data/catalogue'
 import { count, shortDate } from '@/lib/format'
@@ -48,7 +48,7 @@ export function Unseen() {
   return (
     <section id="unseen" className="unseen" data-light="unseen" ref={sectionRef} aria-labelledby="unseen-title">
       <div className="shell unseen__inner">
-        <Chapter index="09" title="The part nobody sees">
+        <Chapter index="09" title="Behind one release">
           <p className="unseen__lead">{unseen.lead}</p>
           {unseen.body.map((p) => (
             <p key={p}>{p}</p>
@@ -94,12 +94,6 @@ export function Unseen() {
 
         <div className="unseen__after" ref={copyRef}>
           <p className="unseen__scale">Run that {count(meta.rows)} times. That is what the catalogue is.</p>
-
-          <div className="unseen__scene">
-            {scene.body.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
         </div>
       </div>
     </section>

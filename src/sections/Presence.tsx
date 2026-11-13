@@ -204,9 +204,18 @@ export function Presence() {
         </div>
 
         <p className="presence__role">
-          {artist.role}. Hardgroove, hard techno and hypnotic techno, roughly {artist.tempoLow} to {artist.tempoHigh}{' '}
+          {artist.role}. Founder of Groove Protocol. Hardgroove and hard techno, {artist.tempoLow} to {artist.tempoHigh}{' '}
           BPM.
         </p>
+
+        <div className="presence__actions">
+          <a className="presence__cta" href="#booking">
+            Bookings
+          </a>
+          <a className="presence__cta presence__cta--quiet" href="/catalogue">
+            Catalogue
+          </a>
+        </div>
       </div>
 
       <div className="presence__foot shell" ref={footRef}>

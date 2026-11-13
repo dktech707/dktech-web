@@ -187,10 +187,8 @@ export const releaseChain = [
 ] as const
 
 export const unseen = {
-  lead: 'Almost none of this is visible from the outside.',
-  body: [
-    'People underestimate how much sits behind a single release. Most of the chain happens before anyone can press play, and none of it is optional.',
-  ],
+  lead: 'Thirteen steps stand behind every record.',
+  body: ['Most of the chain happens before anyone presses play, and every step has to be done right for the record to exist at all.'],
 } as const
 
 /* ---------------------------------------------------------------- Scene */
