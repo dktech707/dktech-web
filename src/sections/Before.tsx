@@ -1,32 +1,51 @@
 import { Chapter } from '@/components/Chapter'
-import { before, begins, nameOrigin } from '@/data/story'
+import { begins, nameOrigin, now } from '@/data/story'
+import { meta } from '@/data/catalogue'
+import { count } from '@/lib/format'
 import { useReveal } from '@/lib/hooks'
 import './Before.css'
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+function monthYear(date: string | null) {
+  if (!date) return null
+  const [y, m] = date.split('-').map(Number)
+  return `${MONTHS[m - 1]} ${y}`
+}
+
 /**
- * Two chapters in one movement, because they only mean anything together:
- * nine years of instruments, then the year the records start.
+ * Two chapters in one movement: who he is now, then the year it started.
  *
- * There is no photograph here. None exists from that period in the supplied
- * material, and inventing one would be the opposite of the point. What fills
- * the space is the dates and the darkness between them.
+ * The first answers the question a promoter or a label actually has, in plain
+ * facts. The figures beside it are computed from the catalogue, so they move
+ * when the catalogue does. The second keeps the origin short: instruments
+ * first, records from 2024.
  */
 export function Before() {
   const listRef = useReveal<HTMLUListElement>({ threshold: 0.3 })
+  const since = monthYear(meta.firstReleaseDate)
+
+  const figures = [
+    `${count(meta.rows)} catalogue entries`,
+    `${count(meta.distinctLabels)} labels`,
+    since ? `Releasing since ${since}` : null,
+    'Founder, Groove Protocol',
+    'Columnist, Mixmag Adria',
+  ].filter(Boolean) as string[]
 
   return (
     <>
-      <section id="before" className="before" data-light="before" aria-label="Before DKTech">
+      <section id="now" className="before" data-light="before" aria-label="DKTech now">
         <div className="shell before__inner">
-          <Chapter index="01" marker={before.year} title="A guitar on a ship">
-            <p className="before__lead">{before.lead}</p>
-            {before.body.map((p) => (
+          <Chapter index="01" title={now.title}>
+            <p className="before__lead">{now.lead}</p>
+            {now.body.map((p) => (
               <p key={p}>{p}</p>
             ))}
           </Chapter>
 
           <ul className="before__instruments" ref={listRef}>
-            {before.instruments.map((it, i) => (
+            {figures.map((it, i) => (
               <li key={it} style={{ '--i': i } as React.CSSProperties}>
                 {it}
               </li>

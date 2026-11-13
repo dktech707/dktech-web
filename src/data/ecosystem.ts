@@ -51,7 +51,7 @@ export const infrastructure: readonly EcoNode[] = [
     name: 'Groove Protocol',
     role: 'Label and bookings',
     status: 'exists',
-    body: 'Groove-driven techno as a label direction, with a booking side built around producers whose work comes before the performance persona.',
+    body: 'Founded by DKTech. Groove-driven techno as a label direction, twenty one catalogue numbers, GP-X001 to GP-X021, since March 2026, with a booking side built around producers whose work comes before the performance persona.',
     imageId: 'eco-groove-protocol',
     labelKey: 'groove protocol',
   },
@@ -78,7 +78,7 @@ export const documentation: readonly EcoNode[] = [
     name: 'SIGNAL',
     role: 'By Groove Protocol',
     status: 'exists',
-    body: 'Documentation rather than promotion. Research, listening, writing and editing, hosting and upkeep. It costs time and money and returns none of it directly. The value is simply that the work gets written down.',
+    body: 'The editorial portal of Groove Protocol. Long conversations with artists, scene reports and support for the events and initiatives that deserve a record. Documentation first, promotion second.',
     children: [
       {
         name: 'VOICES',
@@ -108,7 +108,7 @@ export const mixmag = {
   outlet: 'Mixmag Adria',
   column: 'Hardgroove - Hard Techno Radar',
   role: 'Curator and columnist',
-  body: 'A recurring radar for Mixmag Adria. Listening across the hardgroove and hard techno scene, choosing what belongs, and writing about it from inside the music rather than from a distance.',
+  body: 'A monthly radar for Mixmag Adria. Listening across the hardgroove and hard techno scene, choosing what belongs, and writing about it from inside the music rather than from a distance.',
   imageId: 'proof-mixmag-adria' as GeneratedImageId,
 } as const
 

@@ -262,7 +262,7 @@ scripts/
   lib/                    merge rules, summary figures, Spotify parser (pure, tested)
   test/                   node:test suites and fixtures
   prepare-media.mjs       originals -> public/media, font subsets -> public/fonts
-  prepare-video.sh        two live videos -> silent twelve second hero loops (needs ffmpeg)
+  prepare-video.sh        three live videos -> silent ten second upright hero clips (needs ffmpeg)
   check-dashes.mjs        the dash rule
 src/
   data/     site.ts (verified copy and facts), catalogue.ts (typed view),

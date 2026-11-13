@@ -5,7 +5,6 @@ import { Sound } from '@/sections/Sound'
 import { Works } from '@/sections/Works'
 import { CataloguePressure } from '@/sections/CataloguePressure'
 import { Transmission } from '@/sections/Transmission'
-import { Learning } from '@/sections/Learning'
 import { People } from '@/sections/People'
 import { Unseen } from '@/sections/Unseen'
 import { Archive } from '@/sections/Archive'
@@ -19,20 +18,19 @@ import './Home.css'
 /**
  * One life, in order.
  *
- *   00  Presence    a dark room, a portrait, a light the visitor holds
- *   01  Before      2015, a guitar on a ship, nine years of instruments
+ *   00  Presence    a dark room, live footage, a light the visitor holds
+ *   01  Now         who he is today: records, labels, Groove Protocol, Mixmag
  *   02  2024        the year the records start
  *   03  Sound       what the sound is and why it is that
  *   04  Works       three tracks he chose himself, at three depths
  *   05  Catalogue   what accumulated
  *   06  Rooms       where it went
- *   07  Learning    the first gig, and what it cost
+ *   07  Building    labels, bookings, SIGNAL, the column
  *   08  People      MarAxe, Ogi, the doors that opened
  *   09  The work    the chain nobody sees behind one release
  *   10  Archive     sleeves, vinyl and documents on a shelf
- *   11  Building    labels, Signal, the archive, and why
- *   12  Booking     one address
- *   13  Machines    the room at the end, and then nothing
+ *   11  Booking     one address
+ *   12  Machines    the room at the end, and then nothing
  *
  * Sections carry no background of their own. What changes underneath them is
  * the single travelling light, and each one arrives from slightly further
@@ -71,11 +69,10 @@ export function Home() {
       <Works />
       <CataloguePressure />
       <Transmission />
-      <Learning />
+      <Building />
       <People />
       <Unseen />
       <Archive />
-      <Building />
       <Booking />
       <Machines />
     </div>

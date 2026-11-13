@@ -48,8 +48,8 @@ export const facts: readonly Fact[] = [
     status: 'USER_CONFIRMED',
     statement:
       'In 2015 DKTech first picked up guitar while working on river cruise ships, after hearing a friend play Balasevic (Katrin) and Poslednja Igra Leptira (Natasa).',
-    note: 'Brief. Not in any 11_SOURCE_DOCS PDF; the artist is the source. 2015-2024 is instruments only, no techno production.',
-    public: true,
+    note: 'Brief. Taken out of the public copy at the artist\'s request on 13 November 2026; the site now says only that instruments came before 2024.',
+    public: false,
   },
   {
     id: 'name-origin',
@@ -106,20 +106,12 @@ export const facts: readonly Fact[] = [
     public: false,
   },
   {
-    id: 'heavyweight',
-    status: 'USER_CONFIRMED',
-    statement:
-      'DKTech invited MarAxe to Heavyweight in Croatia; MarAxe headlined and DKTech deliberately played the slot after him to continue the energy, not to compete.',
-    note: 'Brief. A shared bill with a running order, not a B2B and not a shared-decks performance.',
-    public: true,
-  },
-  {
     id: 'jelengrad',
     status: 'USER_CONFIRMED',
     statement:
       'Jelengrad Open Air was DKTech\'s first gig: underprepared, imperfect conditions for a new performer; the lesson was less ego and more preparation.',
-    note: 'Brief. No mythology, no "failure made him stronger".',
-    public: true,
+    note: 'Brief. No mythology, no "failure made him stronger". The Learning chapter is off the page since 13 November 2026.',
+    public: false,
   },
   {
     id: 'djogi-crkva',
@@ -131,6 +123,13 @@ export const facts: readonly Fact[] = [
   },
 
   // ---- Editorial / ecosystem ----
+  {
+    id: 'groove-protocol-founder',
+    status: 'USER_CONFIRMED',
+    statement: 'DKTech founded Groove Protocol (label, bookings and the SIGNAL editorial portal) and runs Rhythmic Beatz Records.',
+    note: 'The artist, 13 November 2026. Catalogue numbers GP-X001 to GP-X021 read from the public release list on grooveprotocol.com the same day.',
+    public: true,
+  },
   {
     id: 'mixmag-role',
     status: 'USER_CONFIRMED',
@@ -170,10 +169,10 @@ export const facts: readonly Fact[] = [
   },
   {
     id: 'depo-clubhouse',
-    status: 'INTERNAL_ONLY',
-    statement: 'DEPO Clubhouse photographs exist in the private source archive.',
-    note: 'Must not appear on the public site (name, caption, alt, room list, published images or identifiers). Source files may remain internally.',
-    public: false,
+    status: 'USER_CONFIRMED',
+    statement: 'DEPO Clubhouse footage and photographs exist in the private source archive.',
+    note: 'Kept off the public site until the artist cleared the venue on 13 November 2026. The hero loop now shows the DEPO booth; the photographs are still unpublished.',
+    public: true,
   },
   {
     id: 'epk-proof-snapshot',

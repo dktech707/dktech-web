@@ -20,41 +20,45 @@ export type Chapter = {
 /** Order is the order of the page. The hero is chapter zero. */
 export const chapters: Chapter[] = [
   { id: 'presence', label: 'Start' },
-  { id: 'before', label: 'Before' },
+  { id: 'now', label: 'Now' },
   { id: 'begins', label: '2024' },
   { id: 'sound', label: 'Sound' },
   { id: 'works', label: 'Three works' },
   { id: 'catalogue', label: 'Catalogue' },
   { id: 'rooms', label: 'Rooms' },
-  { id: 'learning', label: 'Learning' },
+  { id: 'building', label: 'Labels and writing' },
   { id: 'people', label: 'People' },
   { id: 'unseen', label: 'The work' },
   { id: 'archive', label: 'Archive' },
-  { id: 'building', label: 'Building' },
   { id: 'booking', label: 'Booking' },
   { id: 'machines', label: 'Machines' },
 ]
 
-/* ---------------------------------------------------------------- Before */
+/* ---------------------------------------------------------------- Now */
 
-export const before = {
-  year: '2015',
-  where: 'A river cruise ship',
-  lead: 'A friend on board was playing songs by Đorđe Balašević and Poslednja Igra Leptira. Dino picked up a guitar for the first time.',
+/**
+ * Who he is today, before any history. Every line is a current, checked fact:
+ * the labels and the chart come from the catalogue and its proof, Groove
+ * Protocol and Rhythmic Beatz Records from the ecosystem, the column from
+ * Mixmag Adria. The figures beside it are computed from the catalogue.
+ */
+export const now = {
+  title: 'What he does now',
+  lead: 'Producer and DJ from Zagreb. Hardgroove and hard techno with a hypnotic, percussive core.',
   body: [
-    'He did not know then that it would become a serious part of his life. He only felt something. Years later that feeling made sense.',
-    'The work on the ships stayed demanding for years, long days without conventional days off. Music stayed private through all of it. Guitar, then electric guitar, drums and keyboards. Music theory. Ear training. Playing for himself.',
+    'Records since September 2024 on Naked Lunch Records, STØK Recordings, Resilient Recordings, Vezotonik, Physical Techno Recordings and others. The Controlled Aggression EP on Naked Lunch reached number 47 in the Techno (Raw / Deep / Hypnotic) release chart, per Songstats.',
+    'He founded Groove Protocol: a label, a booking side and SIGNAL, its editorial portal. He also runs Rhythmic Beatz Records.',
+    'Every month he writes the Hardgroove - Hard Techno Radar for Mixmag Adria.',
   ],
-  instruments: ['Guitar', 'Electric guitar', 'Drums', 'Keyboards'],
 } as const
 
 /* ---------------------------------------------------------------- 2024 */
 
 export const begins = {
   year: '2024',
-  lead: 'DKTech as an electronic music producer starts here.',
+  lead: 'The records start in 2024.',
   body: [
-    'Nine years of playing, listening and learning began translating into a DAW, and into techno. Before 2024 there were instruments and personal music. From 2024 there are records.',
+    'Guitar, keyboards and drums came first, for years and only for himself. In 2024 that moved into a DAW and into techno, and the releases have kept coming since.',
   ],
 } as const
 
@@ -133,11 +137,10 @@ export const people = [
   {
     id: 'maraxe',
     name: 'MarAxe',
-    role: 'Friend, mentor, collaborator',
+    role: 'Collaborator and mentor',
     body: [
-      'It started by accident. MarAxe had overtaken him on an online ranking. He sent a screenshot with a friendly message, roughly: even though you passed me, I still love your music.',
-      'A few hours later MarAxe wrote back privately and asked whether he had anything for his label. That became a friendship, then mentorship, then a shared studio history. What mattered was not only the music but the way he communicated with a new artist, and the way he gave advice.',
-      'They also found things outside music in common, including ancient history and mythology.',
+      'MarAxe runs STØK Recordings. A friendly message about an online ranking turned, within hours, into a request for music for his label.',
+      'Since then: friendship, mentorship and a run of records written together, from Mastermind and Nine Seals of Namtar on STØK to Siege of Akkad on Physical Techno Recordings. Ancient history and Mesopotamian mythology run through the titles.',
     ],
     /** Studio credits only. No performance is claimed. */
     releases: ['mastermind', 'nine-seals', 'zagreb', 'siege-of-akkad', 'the-answer'],
@@ -153,14 +156,6 @@ export const people = [
     releases: [],
   },
 ] as const
-
-export const heavyweight = {
-  title: 'Heavyweight',
-  body: [
-    'MarAxe was the headline artist. DKTech deliberately took the slot after him.',
-    'Not to compete with it. He trusted the musical compatibility and wanted to carry on the energy that had already been set up. A timetable is not always a ranking. Sets can continue each other.',
-  ],
-} as const
 
 export const crkva = {
   title: 'Crkva, Rijeka',

@@ -15,7 +15,7 @@
   line-height: 1.42;
 }
 
-/* Four instruments, spaced out. Not a list of features. */
+/* The figures beside "Now", spaced out. Not a list of features. */
 .before__instruments {
   display: flex;
   flex-wrap: wrap;
@@ -27,7 +27,7 @@
   font-size: clamp(1.1rem, 0.85rem + 1vw, 1.9rem);
   font-weight: var(--w-light);
   letter-spacing: -0.025em;
-  color: var(--ink-3);
+  color: var(--ink-2);
   opacity: 0;
   transform: translate3d(0, 0.7rem, 0);
   transition:

@@ -1,7 +1,7 @@
 import { Chapter } from '@/components/Chapter'
 import { Artefact } from '@/components/Artefact'
 import { artefactById } from '@/data/covers'
-import { crkva, heavyweight, people } from '@/data/story'
+import { crkva, people } from '@/data/story'
 import './People.css'
 
 /**
@@ -60,13 +60,6 @@ export function People() {
         </div>
 
         <div className="people__pair">
-          <article className="people__note">
-            <h3 className="people__note-title">{heavyweight.title}</h3>
-            {heavyweight.body.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </article>
-
           <article className="people__note">
             <h3 className="people__note-title">{crkva.title}</h3>
             {crkva.body.map((p) => (

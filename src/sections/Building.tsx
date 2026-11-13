@@ -48,7 +48,7 @@ export function Building() {
   return (
     <section id="building" className="building" data-light="building" aria-labelledby="building-title">
       <div className="shell building__inner" ref={ref}>
-        <Chapter index="11" title="What is being built" />
+        <Chapter index="07" title="Labels, bookings and writing" />
         <h2 className="u-visually-hidden" id="building-title">
           Labels, documentation and archive
         </h2>

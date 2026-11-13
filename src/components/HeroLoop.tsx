@@ -2,37 +2,43 @@ import { useEffect, useRef, useState } from 'react'
 import { onFrame } from '@/lib/motion'
 import { light } from '@/lib/light'
 
-const SOURCES = {
-  wide: '/media/hero-loop-wide.mp4',
-  tall: '/media/hero-loop-tall.mp4',
-}
+/** Three real nights, cut by scripts/prepare-video.sh. All upright, all silent. */
+const CLIPS = [
+  { id: 'depo', src: '/media/loop-depo.mp4', label: 'DEPO Clubhouse, the booth' },
+  { id: 'hands', src: '/media/loop-hands.mp4', label: 'Hands on the mixer' },
+  { id: 'booth', src: '/media/loop-booth.mp4', label: 'The booth in pink light' },
+] as const
+
+type Mode = 'panels' | 'single' | null
 
 /**
  * Live footage in the dark room.
  *
- * Twelve silent seconds from a real night, cut by scripts/prepare-video.sh.
- * The portrait underneath is the first paint and stays the whole hero until the
- * video is actually playing; only then does the footage fade in over it. The
- * visitor still holds the light: a shade over the footage keeps everything dark
- * except where the light is pointed, so the hero's one interaction is the same
- * with or without video.
+ * On a wide screen three upright windows stand side by side, each a different
+ * night, each shown at or below the size it was shot at so phone footage stays
+ * sharp. On a phone one full screen window plays the same three clips one
+ * after another. The portrait underneath is the first paint and stays until a
+ * clip is actually playing.
  *
- * No video at all under prefers-reduced-motion or when the browser asks to
- * save data. The source is chosen once, by the shape of the screen, and only
- * after the page has loaded, so it never competes with the portrait.
+ * The visitor still holds the light: a shade over the footage keeps it dark
+ * except where the light is pointed, so the hero's one interaction is the same
+ * with or without video. No video at all under prefers-reduced-motion or when
+ * the browser asks to save data, and nothing loads before the page has.
  */
 export function HeroLoop({ reduced }: { reduced: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
   const shadeRef = useRef<HTMLDivElement>(null)
-  const [src, setSrc] = useState<string | null>(null)
+  const [mode, setMode] = useState<Mode>(null)
   const [playing, setPlaying] = useState(false)
+  // A phone starts on the sharpest clip, the hands; DEPO comes last.
+  const [current, setCurrent] = useState(1)
 
   useEffect(() => {
     if (reduced) return
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
     if (connection?.saveData) return
 
-    const pick = () => setSrc(window.matchMedia('(max-aspect-ratio: 4/5)').matches ? SOURCES.tall : SOURCES.wide)
+    const pick = () => setMode(window.matchMedia('(max-aspect-ratio: 4/5)').matches ? 'single' : 'panels')
     if (document.readyState === 'complete') {
       pick()
       return
@@ -44,23 +50,27 @@ export function HeroLoop({ reduced }: { reduced: boolean }) {
   // Plays only while the hero is on screen. Muted is set as an attribute too:
   // some mobile browsers only allow inline autoplay when the markup says so.
   useEffect(() => {
-    const video = videoRef.current
-    if (!video || !src) return
-    video.muted = true
-    video.setAttribute('muted', '')
-
+    const root = rootRef.current
+    if (!root || !mode) return
+    const videos = Array.from(root.querySelectorAll('video'))
+    for (const v of videos) {
+      v.muted = true
+      v.setAttribute('muted', '')
+    }
     const io = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) video.play().catch(() => undefined)
-      else video.pause()
+      for (const v of videos) {
+        if (entry?.isIntersecting) v.play().catch(() => undefined)
+        else v.pause()
+      }
     })
-    io.observe(video)
+    io.observe(root)
     return () => io.disconnect()
-  }, [src])
+  }, [mode, current])
 
   // The shade's open spot follows the same light as the rest of the page.
   useEffect(() => {
     const shade = shadeRef.current
-    if (!shade || !src) return
+    if (!shade || !mode) return
 
     let pageTop = 0
     let pageLeft = 0
@@ -87,24 +97,48 @@ export function HeroLoop({ reduced }: { reduced: boolean }) {
       stop()
       window.removeEventListener('resize', measure)
     }
-  }, [src])
+  }, [mode])
 
-  if (!src) return null
+  if (!mode) return null
+
+  const onPlaying = () => setPlaying(true)
 
   return (
-    <div className="presence__loop" data-playing={playing ? 'true' : 'false'} aria-hidden="true">
-      <video
-        ref={videoRef}
-        className="presence__video"
-        src={src}
-        muted
-        loop
-        playsInline
-        autoPlay
-        preload="auto"
-        disablePictureInPicture
-        onPlaying={() => setPlaying(true)}
-      />
+    <div className="presence__loop" data-mode={mode} data-playing={playing ? 'true' : 'false'} ref={rootRef} aria-hidden="true">
+      {mode === 'panels' ? (
+        <div className="presence__panels">
+          {CLIPS.map((c, i) => (
+            <div className={`presence__panel presence__panel--${i + 1}`} key={c.id}>
+              <video
+                className="presence__video"
+                src={c.src}
+                muted
+                loop
+                playsInline
+                autoPlay
+                preload="auto"
+                disablePictureInPicture
+                onPlaying={onPlaying}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="presence__single">
+          <video
+            key={CLIPS[current].id}
+            className="presence__video"
+            src={CLIPS[current].src}
+            muted
+            playsInline
+            autoPlay
+            preload="auto"
+            disablePictureInPicture
+            onPlaying={onPlaying}
+            onEnded={() => setCurrent((n) => (n + 1) % CLIPS.length)}
+          />
+        </div>
+      )}
       <div className="presence__shade" ref={shadeRef} />
     </div>
   )

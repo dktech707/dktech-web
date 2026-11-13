@@ -9,7 +9,7 @@ export function Booking() {
   return (
     <section id="booking" className="booking" data-light="booking" aria-labelledby="booking-title">
       <div className="shell booking__inner">
-        <SectionHead index="12 / Booking" title="Booking" id="booking-title" variant="quiet" />
+        <SectionHead index="11 / Booking" title="Booking" id="booking-title" variant="quiet" />
 
         <div className="booking__body" ref={ref}>
           <a className="booking__mail" href={`mailto:${booking.email}`}>
