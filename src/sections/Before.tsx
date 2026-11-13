@@ -1,4 +1,5 @@
 import { Chapter } from '@/components/Chapter'
+import { Frame } from '@/components/Frame'
 import { begins, nameOrigin, now } from '@/data/story'
 import { meta } from '@/data/catalogue'
 import { count } from '@/lib/format'
@@ -56,6 +57,16 @@ export function Before() {
 
       <section id="begins" className="begins" data-light="begins" aria-label="Production begins">
         <div className="shell begins__inner">
+          <figure className="begins__photo">
+            <Frame
+              id="live-monochrome-wide"
+              alt="DKTech behind the decks, in black and white."
+              sizes="(min-width: 1000px) 36vw, 90vw"
+              treatment="documentary"
+              ratio="4 / 3"
+            />
+          </figure>
+
           <Chapter index="02" marker={begins.year}>
             <p className="begins__lead">{begins.lead}</p>
             {begins.body.map((p) => (

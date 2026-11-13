@@ -38,6 +38,29 @@
   transform: none;
 }
 
+/* The staircase on the left, a real night on the right. */
+.sound__row {
+  display: grid;
+  gap: var(--stack-md);
+  align-items: center;
+}
+
+.sound__photo {
+  margin: 0;
+  max-width: 520px;
+}
+
+@media (min-width: 1000px) {
+  .sound__row {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  }
+
+  .sound__photo {
+    justify-self: end;
+    width: 100%;
+  }
+}
+
 /* ---- Tempo axis ---- */
 
 .sound__tempo {

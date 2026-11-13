@@ -1,3 +1,4 @@
+import { Frame } from '@/components/Frame'
 import { SectionHead } from '@/components/SectionHead'
 import { artist, soundTerritory, statements } from '@/data/site'
 import { sound as soundStory } from '@/data/story'
@@ -36,13 +37,25 @@ export function Sound() {
           so the block reads as one descending phrase instead of five rows in
           a table.
         */}
-        <ul className="sound__territory" ref={listRef}>
-          {soundTerritory.map((term, i) => (
-            <li key={term} style={{ '--i': i } as React.CSSProperties}>
-              {term}
-            </li>
-          ))}
-        </ul>
+        <div className="sound__row">
+          <ul className="sound__territory" ref={listRef}>
+            {soundTerritory.map((term, i) => (
+              <li key={term} style={{ '--i': i } as React.CSSProperties}>
+                {term}
+              </li>
+            ))}
+          </ul>
+
+          <figure className="sound__photo">
+            <Frame
+              id="live-close-performance"
+              alt="DKTech at the decks, close, in club light."
+              sizes="(min-width: 1000px) 32vw, 90vw"
+              treatment="documentary"
+              ratio="4 / 5"
+            />
+          </figure>
+        </div>
 
         <div className="sound__tempo" ref={tempoRef}>
           <div className="sound__axis" role="img" aria-label={`Working tempo, roughly ${artist.tempoLow} to ${artist.tempoHigh} beats per minute.`}>

@@ -150,6 +150,21 @@ export function loadFullCatalogue(): Promise<Entry[]> {
 }
 
 /**
+ * A row's labels for display. Two ISRCs of the same track can carry the same
+ * label in two spellings ("ACETON Music", "Aceton Music"); the reader sees it
+ * once, in the first spelling.
+ */
+export function displayLabels(labels: readonly string[]): string[] {
+  const seen = new Set<string>()
+  return labels.filter((l) => {
+    const key = l.toLowerCase()
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
+/**
  * One sentence naming where the figures come from, so a number on the page
  * never claims more than its sources.
  */

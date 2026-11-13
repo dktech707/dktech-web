@@ -13,8 +13,12 @@
     {
       "isrc": "GBKQU2682803",
       "title": "Extraction",
-      "artists": ["DKTech"],
-      "labels": ["ITM Recordings"],
+      "artists": [
+        "DKTech"
+      ],
+      "labels": [
+        "ITM Recordings"
+      ],
       "releaseDate": "2026-09-25",
       "release": "Extraction EP",
       "upc": "5054290129571",
@@ -25,8 +29,12 @@
     {
       "isrc": "GBKQU2682804",
       "title": "X-1312",
-      "artists": ["DKTech"],
-      "labels": ["ITM Recordings"],
+      "artists": [
+        "DKTech"
+      ],
+      "labels": [
+        "ITM Recordings"
+      ],
       "releaseDate": "2026-09-25",
       "release": "Extraction EP",
       "upc": "5054290129571",
@@ -37,8 +45,12 @@
     {
       "isrc": "GBKQU2682805",
       "title": "Moonstone",
-      "artists": ["DKTech"],
-      "labels": ["ITM Recordings"],
+      "artists": [
+        "DKTech"
+      ],
+      "labels": [
+        "ITM Recordings"
+      ],
       "releaseDate": "2026-09-25",
       "release": "Extraction EP",
       "upc": "5054290129571",
@@ -49,8 +61,12 @@
     {
       "isrc": "GBKQU2682806",
       "title": "Groove Within",
-      "artists": ["DKTech"],
-      "labels": ["ITM Recordings"],
+      "artists": [
+        "DKTech"
+      ],
+      "labels": [
+        "ITM Recordings"
+      ],
       "releaseDate": "2026-09-25",
       "release": "Extraction EP",
       "upc": "5054290129571",
@@ -61,8 +77,14 @@
     {
       "isrc": "CA5KR2652023",
       "title": "Odyssey - DKTech Remix",
-      "artists": ["Alternoize Dj", "Aviell", "DKTech"],
-      "labels": ["LETS TECHNO records"],
+      "artists": [
+        "Alternoize Dj",
+        "Aviell",
+        "DKTech"
+      ],
+      "labels": [
+        "LETS TECHNO records"
+      ],
       "releaseDate": "2026-09-14",
       "release": "Odyssey",
       "upc": "612891011869",
@@ -73,8 +95,13 @@
     {
       "isrc": "US83Z2661273",
       "title": "Continuation - DKTech Remix",
-      "artists": ["Fin Cormack", "DKTech"],
-      "labels": ["STØK Recordings"],
+      "artists": [
+        "Fin Cormack",
+        "DKTech"
+      ],
+      "labels": [
+        "STØK Recordings"
+      ],
       "releaseDate": "2026-10-09",
       "release": "Continuity of Momentum",
       "upc": "853567757418",
@@ -84,11 +111,21 @@
     },
     {
       "isrc": "GBRKQ2550936",
-      "isrcs": ["GBRKQ2550936", "QT62W2590667"],
+      "isrcs": [
+        "GBRKQ2550936",
+        "QT62W2590667"
+      ],
       "title": "Alisa Dinova",
-      "artists": ["DKTech"],
-      "labels": ["ACETON Music", "Aceton Music"],
-      "distributors": ["AudioSalad"],
+      "artists": [
+        "DKTech"
+      ],
+      "labels": [
+        "ACETON Music",
+        "Aceton Music"
+      ],
+      "distributors": [
+        "AudioSalad"
+      ],
       "releaseDate": "2025-02-16",
       "source": "the release master, split from the 2026 Groove Protocol release"
     }
@@ -96,7 +133,9 @@
   "override": {
     "NLHR22501075": {
       "title": "Feel The Groove",
-      "isrcs": ["NLHR22501075"],
+      "isrcs": [
+        "NLHR22501075"
+      ],
       "durationSeconds": 303,
       "source": "the Rhythmic Beatz Records catalogue master (RBR004)",
       "resolved": true
@@ -106,15 +145,22 @@
       "resolved": true
     },
     "HRA102611481": {
-      "isrcs": ["HRA102611481"],
-      "labels": ["Groove Protocol"],
+      "isrcs": [
+        "HRA102611481"
+      ],
+      "labels": [
+        "Groove Protocol"
+      ],
       "distributors": [],
       "releaseDate": "2026-07-10",
       "source": "the Groove Protocol catalogue master (GP-X014)",
       "resolved": true
     },
     "QZES52515182": {
-      "isrcs": ["QZES52515182", "QT3EY2476223"],
+      "isrcs": [
+        "QZES52515182",
+        "QT3EY2476223"
+      ],
       "source": "the Rhythmic Beatz Records catalogue master (NLHR22500924 is Wolven Storm XR04)"
     },
     "NLHR22500924": {
@@ -133,6 +179,330 @@
     "HRA102611423": {
       "title": "Borderline - RE_MAART Remix",
       "source": "the Groove Protocol catalogue master (GP-X009)"
+    },
+    "GXEHC2600039": {
+      "durationSeconds": 323,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "CA5KR2612482": {
+      "durationSeconds": 315,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "CA5KR2612483": {
+      "durationSeconds": 344,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2600041": {
+      "durationSeconds": 302,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2600040": {
+      "durationSeconds": 363,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2600044": {
+      "durationSeconds": 372,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2600045": {
+      "durationSeconds": 377,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2600047": {
+      "durationSeconds": 308,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBKQU2625309": {
+      "durationSeconds": 322,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBKQU2625310": {
+      "durationSeconds": 318,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2609945": {
+      "durationSeconds": 340,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2609944": {
+      "durationSeconds": 347,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2609946": {
+      "durationSeconds": 362,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBKQU2623613": {
+      "durationSeconds": 348,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2609178": {
+      "durationSeconds": 496,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZ5FN2606149": {
+      "durationSeconds": 383,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZ5FN2606150": {
+      "durationSeconds": 401,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZ5FN2606156": {
+      "durationSeconds": 410,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500124": {
+      "durationSeconds": 342,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500123": {
+      "durationSeconds": 333,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "SKI202500107": {
+      "durationSeconds": 314,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2549438": {
+      "durationSeconds": 305,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2549435": {
+      "durationSeconds": 391,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2549431": {
+      "durationSeconds": 333,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2558697": {
+      "durationSeconds": 365,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2558696": {
+      "durationSeconds": 343,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2558698": {
+      "durationSeconds": 374,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2558699": {
+      "durationSeconds": 362,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "SKI202500092": {
+      "durationSeconds": 359,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500087": {
+      "durationSeconds": 437,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2548573": {
+      "durationSeconds": 355,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500084": {
+      "durationSeconds": 425,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500085": {
+      "durationSeconds": 340,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500086": {
+      "durationSeconds": 393,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "DEKB72547401": {
+      "durationSeconds": 404,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "DEKB72547399": {
+      "durationSeconds": 391,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "DEKB72547400": {
+      "durationSeconds": 387,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2544638": {
+      "durationSeconds": 326,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2544640": {
+      "durationSeconds": 350,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2544637": {
+      "durationSeconds": 300,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500054": {
+      "durationSeconds": 363,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZG2X2501273": {
+      "durationSeconds": 361,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500059": {
+      "durationSeconds": 404,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500061": {
+      "durationSeconds": 380,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500058": {
+      "durationSeconds": 366,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZG2X2501272": {
+      "durationSeconds": 339,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GXEHC2500060": {
+      "durationSeconds": 391,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2535872": {
+      "durationSeconds": 370,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2535871": {
+      "durationSeconds": 316,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2535873": {
+      "durationSeconds": 336,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2529098": {
+      "durationSeconds": 370,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2529097": {
+      "durationSeconds": 367,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZS672532610": {
+      "durationSeconds": 370,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2521539": {
+      "durationSeconds": 528,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2521542": {
+      "durationSeconds": 320,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2521541": {
+      "durationSeconds": 340,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2521540": {
+      "durationSeconds": 364,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "NLCK42506905": {
+      "durationSeconds": 342,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "NLCK42506903": {
+      "durationSeconds": 342,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "NLCK42506904": {
+      "durationSeconds": 342,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2550940": {
+      "durationSeconds": 397,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2550941": {
+      "durationSeconds": 307,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2551017": {
+      "durationSeconds": 495,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2551014": {
+      "durationSeconds": 371,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2551010": {
+      "durationSeconds": 489,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2544826": {
+      "durationSeconds": 390,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2544812": {
+      "durationSeconds": 450,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBRKQ2544815": {
+      "durationSeconds": 322,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QT3EY2476224": {
+      "durationSeconds": 396,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2457611": {
+      "durationSeconds": 375,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2457641": {
+      "durationSeconds": 335,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "QZZ8B2457636": {
+      "durationSeconds": 349,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBKQU2489520": {
+      "durationSeconds": 315,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "GBKQU2489521": {
+      "durationSeconds": 317,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2403288": {
+      "durationSeconds": 292,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "US83Z2403289": {
+      "durationSeconds": 295,
+      "source": "the artist's HUZIP registration dataset (September 2026)"
+    },
+    "PT9BS2600119": {
+      "labels": ["Naked Lunch Records"],
+      "source": "the label's own name, as printed on its releases"
+    },
+    "PT9BS2600099": {
+      "labels": ["Naked Lunch Records"],
+      "source": "the label's own name, as printed on its releases"
+    },
+    "PT9BS2600100": {
+      "labels": ["Naked Lunch Records"],
+      "source": "the label's own name, as printed on its releases"
+    },
+    "PT9BS2600101": {
+      "labels": ["Naked Lunch Records"],
+      "source": "the label's own name, as printed on its releases"
+    },
+    "PT9BS2600102": {
+      "labels": ["Naked Lunch Records"],
+      "source": "the label's own name, as printed on its releases"
     }
   },
   "hide": []

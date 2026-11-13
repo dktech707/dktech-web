@@ -89,10 +89,30 @@
   text-shadow: 0 0 90px rgb(var(--lamp-rgb) / 0.14);
 }
 
+.begins__photo {
+  margin: 0 0 var(--stack-md);
+}
+
 @media (min-width: 1000px) {
   .begins__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap: var(--stack-lg);
     justify-items: end;
     text-align: right;
+  }
+
+  /* The photograph holds the left half; the year and the text the right. */
+  .begins__photo {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    justify-self: stretch;
+    align-self: center;
+    margin: 0;
+  }
+
+  .begins .chapter,
+  .begins__name {
+    grid-column: 2;
   }
 
   .begins .chapter {

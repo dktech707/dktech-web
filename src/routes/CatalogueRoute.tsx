@@ -1,6 +1,6 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { labels, loadFullCatalogue, meta, releases, sourcesSentence, years, type Entry } from '@/data/catalogue'
+import { displayLabels, labels, loadFullCatalogue, meta, releases, sourcesSentence, years, type Entry } from '@/data/catalogue'
 import { ListeningProvider, PlayControl } from '@/components/Listening'
 import { count, duration, longDuration, pad, shortDate } from '@/lib/format'
 import { useDebounced } from '@/lib/hooks'
@@ -329,10 +329,12 @@ function Row({ entry, open, onToggle }: { entry: Entry; open: boolean; onToggle:
           <span>{entry.title}</span>
         </button>
 
-        <span className="cat__row-label">{entry.labels.join(', ') || <span className="cat__none">not listed</span>}</span>
+        <span className="cat__row-label">
+          {displayLabels(entry.labels).join(', ') || <span className="cat__untimed" aria-label="No label listed" />}
+        </span>
 
         <span className="cat__row-date data">
-          {entry.releaseDate ? shortDate(entry.releaseDate) : <span className="cat__none">not listed</span>}
+          {entry.releaseDate ? shortDate(entry.releaseDate) : <span className="cat__untimed" aria-label="No date listed" />}
         </span>
 
         <span className="cat__row-time data cat__col-time">
