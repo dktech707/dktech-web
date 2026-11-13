@@ -1,0 +1,131 @@
+.sound {
+  position: relative;
+  padding-block: var(--stack-xl);
+}
+
+.sound__inner {
+  display: grid;
+  gap: var(--stack-lg);
+}
+
+/* ---- Sound territory as a staircase ---- */
+
+.sound__territory {
+  display: grid;
+  margin: 0;
+  gap: clamp(0.1rem, 0.3vw, 0.5rem);
+}
+
+.sound__territory li {
+  font-size: clamp(1.5rem, 0.85rem + 2.8vw, 3.6rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  /* Each step in the staircase sits further right and a shade brighter. */
+  margin-left: calc(var(--i) * clamp(0.75rem, 0.2rem + 2.4vw, 4.5rem));
+  color: rgb(var(--ink-rgb) / calc(0.34 + var(--i) * 0.12));
+  opacity: 0;
+  transform: translate3d(-0.5rem, 0.8rem, 0);
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 900ms var(--ease-out),
+    color 400ms var(--ease-out);
+  transition-delay: calc(var(--i) * 110ms);
+}
+
+.sound__territory[data-revealed='true'] li {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Tempo axis ---- */
+
+.sound__tempo {
+  max-width: 46ch;
+  justify-self: end;
+}
+
+.sound__axis {
+  position: relative;
+  height: 3.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.sound__axis-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--edge-2);
+}
+
+.sound__axis-band {
+  position: absolute;
+  top: -1px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    rgb(var(--blood-rgb) / 0.85),
+    rgb(var(--lamp-rgb) / 0.95) 50%,
+    rgb(var(--blood-rgb) / 0.85)
+  );
+  box-shadow: 0 0 26px rgb(var(--lamp-rgb) / 0.24);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 1400ms var(--ease-out) 200ms;
+}
+
+.sound__tempo[data-revealed='true'] .sound__axis-band {
+  transform: scaleX(1);
+}
+
+.sound__axis-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 0.6rem;
+  background: var(--edge-2);
+}
+
+.sound__axis-tick span {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--ink-4);
+}
+
+.sound__axis-tick:first-of-type span {
+  translate: 0 0;
+  left: 0;
+}
+
+.sound__axis-tick:last-of-type span {
+  translate: -100% 0;
+  left: 100%;
+}
+
+.sound__tempo-note {
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+}
+
+@media (max-width: 899px) {
+  .sound__tempo {
+    justify-self: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound__territory li,
+  .sound__axis-band {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .sound__axis-band {
+    transform: scaleX(1);
+  }
+}

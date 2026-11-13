@@ -1,0 +1,109 @@
+.chapter {
+  display: grid;
+  gap: clamp(0.9rem, 0.5rem + 1.4vw, 1.75rem);
+}
+
+.chapter__index {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  color: var(--ink-4);
+}
+
+.chapter__tick {
+  display: block;
+  width: clamp(1.75rem, 1rem + 2.4vw, 3.25rem);
+  height: 1px;
+  background: var(--edge-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter__tick::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.95), rgb(var(--lamp-rgb) / 0.75));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 1300ms var(--ease-out) 100ms;
+}
+
+.chapter[data-revealed='true'] .chapter__tick::after {
+  transform: scaleX(1);
+}
+
+/*
+  The year is the display type. It is set large and low contrast, so it reads
+  as a date carved into the page rather than as a headline shouting at you.
+*/
+.chapter__marker {
+  font-size: clamp(3.4rem, 1.6rem + 8vw, 10rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.055em;
+  line-height: 0.84;
+  color: var(--ink-5);
+  font-variant-numeric: lining-nums;
+  clip-path: inset(0 0 104% 0);
+  transition: clip-path 1300ms var(--ease-out) 120ms;
+}
+
+.chapter[data-revealed='true'] .chapter__marker {
+  clip-path: inset(-30% -8% -20% -2%);
+}
+
+.chapter__title {
+  font-size: var(--t-h2);
+  font-weight: var(--w-light);
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  color: var(--ink);
+  max-width: 17ch;
+  clip-path: inset(0 0 106% 0);
+  transform: translate3d(0, 0.12em, 0);
+  transition:
+    clip-path 1100ms var(--ease-out) 200ms,
+    transform 1100ms var(--ease-out) 200ms;
+}
+
+.chapter[data-revealed='true'] .chapter__title {
+  clip-path: inset(-30% -12% -22% -2%);
+  transform: none;
+}
+
+.chapter__body {
+  max-width: 50ch;
+  font-size: var(--t-base);
+  color: var(--ink-2);
+  line-height: 1.66;
+  opacity: 0;
+  transform: translate3d(0, 0.8rem, 0);
+  transition:
+    opacity 950ms var(--ease-out) 340ms,
+    transform 950ms var(--ease-out) 340ms;
+}
+
+.chapter[data-revealed='true'] .chapter__body {
+  opacity: 1;
+  transform: none;
+}
+
+.chapter__body p + p {
+  margin-top: 0.9em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter__marker,
+  .chapter__title,
+  .chapter__body,
+  .chapter__tick::after {
+    transition: none;
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .chapter__tick::after {
+    transform: scaleX(1);
+  }
+}

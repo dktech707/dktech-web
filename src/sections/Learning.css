@@ -1,0 +1,51 @@
+/*
+  The quietest chapter on the page. One column, a lot of air around it, and no
+  photograph. Nothing was documented from that night, and pulling in an
+  unrelated picture would be dishonest as well as decorative.
+*/
+/*
+  Quiet, but not empty. The air around this chapter is deliberate; a full blank
+  screen either side of it is not, so the block is tightened to a held pause
+  rather than a gap the reader has to scroll through.
+*/
+.learning {
+  position: relative;
+  padding-block: var(--stack-lg);
+}
+
+.learning__inner {
+  display: grid;
+}
+
+.learning__what {
+  color: rgb(var(--blood-rgb) / 0.95);
+  margin-bottom: 0.5em;
+}
+
+.learning .chapter__body {
+  max-width: 44ch;
+}
+
+@media (min-width: 900px) {
+  .learning__inner {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .learning .chapter {
+    justify-items: center;
+    max-width: 46rem;
+  }
+
+  .learning .chapter__title {
+    max-width: none;
+  }
+
+  .learning .chapter__body {
+    text-align: left;
+  }
+
+  .learning .chapter__tick {
+    display: none;
+  }
+}

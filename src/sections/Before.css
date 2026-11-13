@@ -1,0 +1,125 @@
+.before {
+  position: relative;
+  padding-block: var(--stack-xl);
+}
+
+.before__inner {
+  display: grid;
+  gap: var(--stack-lg);
+}
+
+.before__lead {
+  font-size: var(--t-lead);
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.42;
+}
+
+/* Four instruments, spaced out. Not a list of features. */
+.before__instruments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 0.5rem + 3vw, 4.5rem);
+  margin: 0;
+}
+
+.before__instruments li {
+  font-size: clamp(1.1rem, 0.85rem + 1vw, 1.9rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.025em;
+  color: var(--ink-3);
+  opacity: 0;
+  transform: translate3d(0, 0.7rem, 0);
+  transition:
+    opacity 800ms var(--ease-out),
+    transform 800ms var(--ease-out);
+  transition-delay: calc(var(--i) * 120ms);
+}
+
+.before__instruments[data-revealed='true'] li {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 1000px) {
+  .before__inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: var(--stack-lg);
+    align-items: end;
+  }
+
+  .before__instruments {
+    flex-direction: column;
+    gap: clamp(0.6rem, 0.3rem + 1vw, 1.2rem);
+    padding-bottom: 0.5rem;
+  }
+
+  /* Each instrument steps further in, the way the staircase in Sound does. */
+  .before__instruments li {
+    margin-left: calc(var(--i) * clamp(0.5rem, 0.2rem + 1.4vw, 2rem));
+  }
+}
+
+/* ---- 2024 ---- */
+
+.begins {
+  position: relative;
+  padding-block: var(--stack-xl);
+}
+
+.begins__inner {
+  display: grid;
+}
+
+.begins__lead {
+  font-size: clamp(1.3rem, 0.95rem + 1.4vw, 2.2rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.03em;
+  line-height: 1.26;
+  color: var(--ink);
+  margin-bottom: 0.7em;
+}
+
+/*
+  The year that matters most on the page. Brighter than the one above it, and
+  the only marker on the site that carries the lamp.
+*/
+.begins .chapter__marker {
+  color: var(--ink-4);
+  text-shadow: 0 0 90px rgb(var(--lamp-rgb) / 0.14);
+}
+
+@media (min-width: 1000px) {
+  .begins__inner {
+    justify-items: end;
+    text-align: right;
+  }
+
+  .begins .chapter {
+    justify-items: end;
+  }
+
+  .begins .chapter__body {
+    max-width: 46ch;
+  }
+
+  .begins .chapter__index {
+    flex-direction: row-reverse;
+  }
+
+  .begins .chapter__tick::after {
+    transform-origin: 100% 50%;
+    background: linear-gradient(to left, rgb(var(--blood-rgb) / 0.95), rgb(var(--lamp-rgb) / 0.75));
+  }
+}
+
+/* A small archival aside: where the name came from. */
+.begins__name {
+  margin-top: var(--stack-sm);
+  max-width: 46ch;
+  font-size: var(--t-sm);
+  color: var(--ink-4);
+  line-height: 1.7;
+  padding-left: 1rem;
+  border-left: 1px solid var(--edge);
+}

@@ -1,0 +1,306 @@
+/*
+  A long descent. The height is the time the room takes to disappear; the
+  sticky viewport inside it is the room itself.
+*/
+.machines {
+  position: relative;
+  height: 320vh;
+  background: var(--void);
+}
+
+.machines__room {
+  --descent: 0;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  height: 100dvh;
+  overflow: clip;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.machines__mark {
+  position: absolute;
+  top: clamp(4.5rem, 3rem + 5vh, 7rem);
+  left: var(--gutter);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  color: var(--ink-4);
+}
+
+.machines__tick {
+  display: block;
+  width: clamp(1.75rem, 1rem + 2.4vw, 3.25rem);
+  height: 1px;
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.95), transparent);
+}
+
+/* ---- The room ---- */
+
+.machines__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+  perspective-origin: 50% 48%;
+  transform-style: preserve-3d;
+}
+
+.machines__layer {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+/*
+  Real equipment, printed very dark. Only the indicator lights and the lit jog
+  wheel survive the exposure, which is exactly what a studio looks like with
+  the lights off.
+*/
+.machines__layer .frame img {
+  filter: brightness(0.34) contrast(1.3) saturate(0.7);
+}
+
+.machines__layer .frame::after {
+  display: none;
+}
+
+.machines__layer .frame {
+  background: none;
+}
+
+/*
+  These are fragments, not photographs pinned to a wall. The room's own black
+  is painted back over each crop's edges, so the equipment emerges out of the
+  dark and returns into it and no rectangle is ever visible.
+*/
+.machines__layer::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--void), rgb(1 1 2 / 0) 20%, rgb(1 1 2 / 0) 80%, var(--void)),
+    linear-gradient(to bottom, var(--void), rgb(1 1 2 / 0) 22%, rgb(1 1 2 / 0) 78%, var(--void));
+}
+
+/*
+  Seven objects at seven distances with darkness between them, not a stack of
+  photographs touching. Each one is offset sideways as well as in depth, so the
+  room has a floor plan: the wide decks stand furthest back, and the smallest
+  details, the lit jog wheel and the indicator lights, are the last things
+  close enough to see before the dark closes.
+*/
+.machines__layer--deck {
+  top: 2%;
+  left: 32%;
+  width: min(56vw, 44rem);
+  z-index: 1;
+}
+
+.machines__layer--mixer {
+  top: 26%;
+  left: 68%;
+  width: min(44vw, 34rem);
+  z-index: 2;
+}
+
+.machines__layer--knobs {
+  top: 46%;
+  left: 22%;
+  width: min(34vw, 26rem);
+  z-index: 3;
+}
+
+.machines__layer--cables {
+  top: 12%;
+  left: 84%;
+  width: min(22vw, 16rem);
+  z-index: 3;
+}
+
+.machines__layer--platter {
+  top: 72%;
+  left: 58%;
+  width: min(32vw, 24rem);
+  z-index: 4;
+}
+
+.machines__layer--jog {
+  top: 62%;
+  left: 30%;
+  width: min(40vw, 30rem);
+  z-index: 5;
+}
+
+.machines__layer--leds {
+  top: 88%;
+  left: 72%;
+  width: min(26vw, 20rem);
+  z-index: 6;
+}
+
+/*
+  Depth of field. The eye is on the near equipment, so the fragments standing
+  furthest back go soft, in proportion to their distance. This is the one thing
+  a WebGL version of this room would genuinely have added, and it costs a blur
+  radius here instead of a renderer.
+*/
+.machines__layer--deck .frame img {
+  filter: brightness(0.34) contrast(1.3) saturate(0.7) blur(2.4px);
+}
+
+.machines__layer--mixer .frame img {
+  filter: brightness(0.34) contrast(1.3) saturate(0.7) blur(1.6px);
+}
+
+.machines__layer--cables .frame img {
+  filter: brightness(0.34) contrast(1.3) saturate(0.7) blur(0.8px);
+}
+
+/*
+  The nearest fragments keep a little more exposure and stay sharp, because
+  they are the ones whose own indicator lights are the last thing left.
+*/
+.machines__layer--jog .frame img,
+.machines__layer--leds .frame img {
+  filter: brightness(0.5) contrast(1.26) saturate(0.9);
+}
+
+.machines__layer--platter .frame img {
+  filter: brightness(0.42) contrast(1.3) saturate(0.8);
+}
+
+/*
+  Crimson spill across metal. Very low, and only on the fragments that sit in
+  the red-lit part of the room, so it reads as the room's own light rather than
+  as a colour applied to the page.
+*/
+.machines__layer--knobs::after,
+.machines__layer--platter::after,
+.machines__layer--deck::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 60% at 40% 60%, rgb(var(--blood-rgb) / 0.16), transparent 72%);
+  mix-blend-mode: screen;
+}
+
+/*
+  The dark closing over the room. It starts as a vignette and ends as the
+  whole frame, with the last trace of crimson going out at the edges.
+*/
+.machines__dark {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 90% at 50% 50%,
+      transparent calc(24% - var(--descent) * 24%),
+      rgb(1 1 2 / calc(0.55 + var(--descent) * 0.45)) calc(66% - var(--descent) * 40%),
+      var(--void) calc(100% - var(--descent) * 34%)
+    ),
+    radial-gradient(
+      140% 110% at 50% 50%,
+      transparent 50%,
+      rgb(var(--blood-rgb) / calc(0.1 * (1 - var(--descent)))) 82%,
+      transparent 100%
+    );
+}
+
+@media (max-width: 640px) {
+  .machines {
+    height: 300vh;
+  }
+
+  .machines__layer--deck {
+    top: 4%;
+    left: 44%;
+    width: 92vw;
+  }
+
+  .machines__layer--mixer {
+    top: 26%;
+    left: 62%;
+    width: 74vw;
+  }
+
+  .machines__layer--knobs {
+    top: 46%;
+    left: 30%;
+    width: 62vw;
+  }
+
+  .machines__layer--cables {
+    top: 14%;
+    left: 86%;
+    width: 34vw;
+  }
+
+  .machines__layer--platter {
+    top: 74%;
+    left: 66%;
+    width: 58vw;
+  }
+
+  .machines__layer--jog {
+    top: 62%;
+    left: 34%;
+    width: 70vw;
+  }
+
+  .machines__layer--leds {
+    top: 90%;
+    left: 70%;
+    width: 48vw;
+  }
+}
+
+/*
+  With reduced motion the room simply is. Nothing recedes, nothing fades, and
+  the section shrinks to a single screen so there is no empty scrolling.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .machines {
+    height: auto;
+  }
+
+  .machines__room {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    padding-block: var(--stack-xl);
+  }
+
+  .machines__layer {
+    position: relative;
+    top: auto;
+    left: auto;
+    translate: none;
+    transform: none !important;
+    opacity: 1 !important;
+    width: min(92vw, 60rem);
+    margin-inline: auto;
+    will-change: auto;
+  }
+
+  .machines__stage {
+    display: grid;
+    gap: var(--stack-md);
+    height: auto;
+    perspective: none;
+  }
+
+  .machines__dark {
+    background: radial-gradient(120% 90% at 50% 50%, transparent 40%, rgb(1 1 2 / 0.6) 100%);
+  }
+}

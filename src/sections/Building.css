@@ -1,0 +1,223 @@
+.building {
+  position: relative;
+  padding-block: var(--stack-xl);
+}
+
+.building__inner {
+  display: grid;
+  gap: var(--stack-lg);
+}
+
+.building__list {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3.4vw, 4.25rem);
+}
+
+.building__list li {
+  display: grid;
+  grid-template-columns: clamp(40px, 7vw, 62px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1rem, 0.5rem + 1.6vw, 2.25rem);
+  opacity: 0;
+  transform: translate3d(0, 1rem, 0);
+  transition:
+    opacity 850ms var(--ease-out),
+    transform 850ms var(--ease-out);
+  transition-delay: calc(var(--i) * 90ms);
+}
+
+.building__inner[data-revealed='true'] .building__list li {
+  opacity: 1;
+  transform: none;
+}
+
+/* A quiet movement label between the two groups. */
+.building__movement {
+  color: var(--ink-4);
+  margin-top: var(--stack-md);
+}
+.building__movement::before {
+  content: '';
+  display: inline-block;
+  width: 1.6rem;
+  height: 1px;
+  margin-right: 0.7rem;
+  vertical-align: middle;
+  background: rgb(var(--blood-rgb) / 0.7);
+}
+
+.building__soon {
+  color: rgb(var(--blood-rgb) / 0.85);
+}
+
+/* SIGNAL's sub-projects, kept as distinct named items rather than one paragraph. */
+.building__children {
+  margin-top: 1.1em;
+  display: grid;
+  gap: 0.85em;
+  max-width: 52ch;
+  padding-left: 1rem;
+  border-left: 1px solid var(--edge);
+}
+.building__child-name {
+  font-size: var(--t-sm);
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.building__child-text {
+  margin-top: 0.2em;
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+  line-height: 1.6;
+}
+
+/*
+  Other people's marks, held small and near monochrome. They are a credit on
+  this page, not a second identity.
+*/
+.building__mark {
+  width: 100%;
+  opacity: 0.5;
+  transition: opacity var(--dur-mid) var(--ease-out);
+}
+
+.building__list li:hover .building__mark {
+  opacity: 0.9;
+}
+
+.building__mark .frame {
+  background: none;
+}
+
+.building__mark-blank {
+  display: block;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.building__mark-blank::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.8), transparent);
+}
+
+.building__kind {
+  color: var(--ink-4);
+  margin-bottom: 0.55rem;
+}
+
+.building__name {
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.4rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.033em;
+  line-height: 1.06;
+  color: var(--ink);
+}
+
+.building__text {
+  margin-top: 0.7em;
+  max-width: 52ch;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.building__count {
+  color: var(--ink-4);
+  grid-column: 2;
+}
+
+/*
+  Legacy is never announced anywhere on this page. This is the one line that
+  comes close, and it sits at the end of the chapter rather than under a
+  heading of its own.
+*/
+.building__legacy {
+  display: grid;
+  gap: 1.05em;
+  max-width: 52ch;
+  padding-left: clamp(1rem, 0.5rem + 1.6vw, 2.25rem);
+  border-left: 1px solid rgb(var(--blood-rgb) / 0.55);
+}
+
+.building__legacy-line {
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  line-height: 1.46;
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+}
+
+.building__legacy-line--quiet {
+  font-size: var(--t-base);
+  color: var(--ink-3);
+}
+
+/* Mixmag editorial moment: role and column, with one page of evidence beside it. */
+.building__editorial {
+  display: grid;
+  gap: var(--stack-sm);
+  padding-block: var(--stack-sm);
+  border-top: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+}
+
+.building__editorial-text {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 56ch;
+}
+
+.building__editorial-proof {
+  width: min(320px, 72%);
+}
+
+.building__editorial-proof .frame {
+  background: none;
+}
+
+.building__editorial-proof figcaption {
+  margin-top: 0.5rem;
+  color: var(--ink-4);
+}
+
+@media (min-width: 1000px) {
+  .building__editorial {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 30%);
+    align-items: start;
+    gap: var(--stack-md);
+  }
+
+  .building__editorial-proof {
+    width: 100%;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 1000px) {
+  .building__list li {
+    grid-template-columns: clamp(40px, 5vw, 62px) minmax(0, 1fr) 11rem;
+  }
+
+  .building__count {
+    grid-column: 3;
+    text-align: right;
+    padding-top: 2.2rem;
+  }
+
+  .building__legacy {
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .building__list li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

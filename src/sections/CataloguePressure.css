@@ -1,0 +1,140 @@
+.pressure {
+  position: relative;
+  padding-block: var(--stack-xl);
+}
+
+.pressure__inner {
+  display: grid;
+  gap: var(--stack-md);
+}
+
+.pressure__lead {
+  max-width: 40ch;
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+}
+
+/*
+  The accumulation. One thin spine per catalogue entry, rising from a shelf
+  edge, both ends receding into darkness. Reads as a physical stack rather than
+  a chart: no axes, no labels, no counts.
+*/
+.pressure__stack {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(1px, 0.14vw, 3px);
+  height: clamp(150px, 20vw, 300px);
+  padding-inline: clamp(0.5rem, 2vw, 2rem);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.pressure__spine {
+  flex: 1 1 0;
+  min-width: 0;
+  height: calc(var(--h, 0.5) * 100%);
+  border-radius: 0.5px;
+  background: linear-gradient(
+    to top,
+    rgb(var(--ink-rgb) / calc(0.05 + var(--lit, 0) * 0.05)),
+    rgb(var(--ink-rgb) / calc(0.09 + var(--lit, 0) * 0.15))
+  );
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 700ms var(--ease-out);
+  transition-delay: calc(var(--lit, 0) * 260ms);
+}
+
+.pressure__stack[data-revealed='true'] .pressure__spine {
+  transform: scaleY(1);
+}
+
+/* The most recent spines catch a little of the travelling light's warmth. */
+.pressure__spine:nth-last-child(-n + 15) {
+  background: linear-gradient(to top, rgb(var(--ink-rgb) / 0.09), rgb(var(--lamp-rgb) / 0.22));
+}
+
+.pressure__shelf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(var(--blood-rgb) / 0.5) 22%,
+    rgb(var(--blood-rgb) / 0.5) 78%,
+    transparent
+  );
+}
+
+.pressure__foot {
+  display: grid;
+  gap: var(--stack-sm);
+}
+
+.pressure__foot-text {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 60ch;
+}
+
+.pressure__recent {
+  color: var(--ink-3);
+}
+
+.pressure__note {
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+  line-height: 1.7;
+  max-width: 56ch;
+}
+
+.pressure__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  min-height: 44px;
+  color: var(--ink);
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  letter-spacing: -0.01em;
+}
+
+.pressure__cta-rule {
+  display: block;
+  width: clamp(2rem, 8vw, 6rem);
+  height: 1px;
+  background: linear-gradient(to right, rgb(var(--lamp-rgb) / 0.6), rgb(var(--blood-rgb) / 0.4));
+  transition: width var(--dur-mid) var(--ease-out);
+}
+
+.pressure__cta:hover .pressure__cta-rule,
+.pressure__cta:focus-visible .pressure__cta-rule {
+  width: clamp(3rem, 12vw, 9rem);
+}
+
+.pressure__cta .data {
+  color: var(--ink-4);
+}
+
+@media (min-width: 860px) {
+  .pressure__foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--stack-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pressure__spine {
+    transform: scaleY(1);
+    transition: none;
+  }
+}

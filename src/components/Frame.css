@@ -1,0 +1,56 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--surface-0);
+  background-size: cover;
+  background-position: center;
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+.frame[data-loaded='true'] img {
+  opacity: 1;
+}
+
+/*
+  Live documentation keeps its grain, its noise and the colour of the room it
+  was shot in. Only the very deepest shadows are lifted so the picture joins the
+  page instead of cutting a hole in it.
+*/
+.frame--documentary img {
+  filter: contrast(1.06) saturate(0.82) brightness(0.94);
+}
+
+.frame--documentary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgb(3 3 4 / 0.34) 0%, transparent 28%, transparent 64%, rgb(3 3 4 / 0.62) 100%);
+}
+
+/*
+  Proof material carries other people's branding. Desaturating it keeps that
+  branding legible as evidence without letting a second palette onto the page.
+*/
+.frame--archive img {
+  filter: grayscale(0.94) contrast(1.14) brightness(0.8);
+  transition: opacity 900ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+.frame--archive:hover img,
+.frame--archive:focus-within img {
+  filter: grayscale(0.2) contrast(1.04) brightness(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame img {
+    transition: none;
+  }
+}

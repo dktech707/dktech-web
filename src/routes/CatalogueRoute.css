@@ -1,0 +1,539 @@
+.cat {
+  position: relative;
+  z-index: 1;
+  padding-bottom: var(--stack-xl);
+}
+
+/* ---- Head ---- */
+
+.cat__head {
+  display: grid;
+  gap: var(--stack-sm);
+  padding-top: clamp(5rem, 3.5rem + 6vh, 8.5rem);
+  padding-bottom: var(--stack-sm);
+}
+
+.cat__crumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding-right: 0.35rem;
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cat__crumb a:hover {
+  color: var(--ink);
+}
+
+.cat__title {
+  font-size: var(--t-h1);
+  font-weight: var(--w-light);
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.cat__lead {
+  max-width: 62ch;
+  font-size: var(--t-base);
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.cat__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--stack-sm) clamp(1rem, 0.4rem + 2vw, 3rem);
+  margin: var(--stack-sm) 0 0;
+  padding-top: var(--stack-sm);
+  border-top: 1px solid var(--edge);
+}
+
+.cat__meta dt {
+  margin-bottom: 0.45em;
+}
+
+.cat__meta dd {
+  margin: 0;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.cat__audio-state {
+  max-width: 66ch;
+  padding: 0.9rem 0 0;
+  border-top: 1px solid var(--edge);
+  font-size: var(--t-xs);
+  color: var(--ink-4);
+  line-height: 1.7;
+}
+
+.cat__audio-state code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--ink-3);
+}
+
+@media (min-width: 760px) {
+  .cat__meta {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ---- Controls ---- */
+
+.cat__controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  /*
+    Nearly transparent on purpose. The lighting layer behind the page is fixed,
+    so a solid dark bar here would read as a band across the middle of the
+    page. Glass keeps the same air on both sides of the edge.
+  */
+  background: linear-gradient(to bottom, rgb(4 4 5 / 0.5) 0%, rgb(4 4 5 / 0.62) 70%, rgb(4 4 5 / 0));
+  backdrop-filter: blur(22px) saturate(1.1);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  /* Enough clearance for the fixed header, and no more. */
+  padding-top: clamp(3.25rem, 2rem + 3vw, 4.25rem);
+  padding-bottom: 1.25rem;
+  margin-top: var(--stack-sm);
+}
+
+.cat__controls-inner {
+  display: grid;
+  gap: var(--stack-sm);
+}
+
+.cat__search input {
+  width: 100%;
+  padding: 0.85rem 0;
+  min-height: 48px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--edge-2);
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.cat__search input::placeholder {
+  color: var(--ink-4);
+}
+
+/*
+  The field keeps the site focus ring rather than replacing it with a colour
+  change: a borderless input with only a tinted underline is not a strong
+  enough indicator on a page this dark.
+*/
+.cat__search input:focus {
+  border-bottom-color: rgb(var(--lamp-rgb) / 0.8);
+}
+
+.cat__filters {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cat__group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.cat__group-label {
+  color: var(--ink-4);
+}
+
+.cat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+}
+
+/*
+  These are the only pill shapes on the site. They exist because a filter is a
+  toggle and a toggle needs a hit target with an on state; nothing decorative
+  borrows the shape.
+*/
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.45rem 0.75rem;
+  min-height: 36px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.chip:hover {
+  color: var(--ink);
+  border-color: var(--edge-3);
+}
+
+.chip[data-active='true'] {
+  color: var(--void);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.chip__n {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+}
+
+.cat__result {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--ink-4);
+}
+
+.cat__clear {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--edge-2);
+  min-height: 32px;
+}
+
+.cat__clear:hover {
+  color: var(--ink);
+}
+
+/*
+  The label list is long, so it gets a row of its own and the two short groups
+  share the row below it. Cramming all three into one row wrapped the labels
+  into five lines and buried the sort control.
+*/
+@media (min-width: 760px) {
+  .cat__filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem clamp(1rem, 0.4rem + 2vw, 3rem);
+    align-items: start;
+  }
+
+  .cat__group:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---- List ---- */
+
+.cat__list-wrap {
+  padding-top: 0.5rem;
+}
+
+.cat__list {
+  border-top: 1px solid var(--edge-2);
+}
+
+.cat__row {
+  border-bottom: 1px solid var(--edge);
+}
+
+.cat__row--head {
+  display: none;
+}
+
+.cat__row-main {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  grid-template-areas:
+    'play title more'
+    'play label more'
+    'play date more';
+  align-items: center;
+  gap: 0.15rem 0.9rem;
+  padding-block: 0.85rem;
+}
+
+.cat__row-main > .listen {
+  grid-area: play;
+}
+
+.cat__row-n {
+  display: none;
+}
+
+.cat__row-title {
+  grid-area: title;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  text-align: left;
+  font-size: var(--t-base);
+  font-weight: var(--w-light);
+  color: var(--ink);
+  min-height: 28px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cat__row-title:hover {
+  color: rgb(var(--lamp-rgb) / 0.95);
+}
+
+.cat__row-label {
+  grid-area: label;
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}
+
+.cat__row-date {
+  grid-area: date;
+  color: var(--ink-4);
+}
+
+.cat__row-time {
+  display: none;
+}
+
+.cat__row-more {
+  grid-area: more;
+  width: 2.5rem;
+  min-height: 44px;
+  font-size: 1.1rem;
+  color: var(--ink-4);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cat__row-more:hover {
+  color: var(--ink);
+}
+
+.cat__none {
+  color: var(--ink-4);
+}
+
+/* A row with no recorded duration gets a rule, not a stand-in value. */
+.cat__untimed {
+  display: inline-block;
+  width: 0.9rem;
+  height: 1px;
+  vertical-align: middle;
+  background: var(--edge-2);
+}
+
+.cat__row:hover {
+  background: rgb(255 255 255 / 0.018);
+}
+
+.cat__row[data-open='true'] {
+  background: rgb(255 255 255 / 0.026);
+}
+
+.cat__flag {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--lamp-rgb) / 0.75);
+  border: 1px solid rgb(var(--lamp-rgb) / 0.3);
+  padding: 0.15em 0.5em;
+  white-space: nowrap;
+}
+
+/* ---- Detail ---- */
+
+.cat__detail {
+  display: grid;
+  gap: var(--stack-sm);
+  padding: 0 0 1.5rem;
+  animation: detail-in var(--dur-mid) var(--ease-out) both;
+}
+
+.cat__detail dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem clamp(1rem, 0.4rem + 2vw, 2.5rem);
+  margin: 0;
+}
+
+.cat__detail dt {
+  margin-bottom: 0.4em;
+  color: var(--ink-4);
+}
+
+.cat__detail dd {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  word-break: break-word;
+}
+
+.cat__conflicts {
+  padding-left: 1rem;
+  border-left: 1px solid rgb(var(--lamp-rgb) / 0.35);
+}
+
+.cat__conflicts p.label {
+  margin-bottom: 0.5rem;
+  color: rgb(var(--lamp-rgb) / 0.7);
+}
+
+.cat__conflicts li {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+  line-height: 1.65;
+  max-width: 90ch;
+}
+
+.cat__conflicts li + li {
+  margin-top: 0.4rem;
+}
+
+@keyframes detail-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -0.4rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cat__empty {
+  padding-block: var(--stack-md);
+  max-width: 48ch;
+  color: var(--ink-3);
+}
+
+/* ---- Desktop table layout ---- */
+
+@media (min-width: 880px) {
+  .cat__row--head {
+    display: block;
+    border-bottom: 1px solid var(--edge);
+  }
+
+  .cat__row--head,
+  .cat__row-main {
+    grid-template-columns: 2.25rem 3.25rem minmax(0, 2fr) minmax(0, 1.35fr) 8rem 4rem 2.5rem;
+    grid-template-areas: none;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .cat__row--head {
+    display: grid;
+    padding-block: 0.75rem;
+  }
+
+  .cat__row-n {
+    display: block;
+    color: var(--ink-4);
+  }
+
+  .cat__row-title,
+  .cat__row-label,
+  .cat__row-date,
+  .cat__row-time,
+  .cat__row-more,
+  .cat__row-main > .listen {
+    grid-area: auto;
+  }
+
+  .cat__row-time {
+    display: block;
+    text-align: right;
+  }
+
+  .cat__col-time {
+    text-align: right;
+  }
+
+  .cat__row-label {
+    font-size: var(--t-sm);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cat__detail {
+    padding-left: calc(2.25rem + 3.25rem + 2rem);
+  }
+}
+
+/* ---- Releases ---- */
+
+.cat__releases {
+  display: grid;
+  gap: var(--stack-sm);
+  padding-top: var(--stack-lg);
+}
+
+.cat__releases-title {
+  font-size: var(--t-h3);
+  font-weight: var(--w-light);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.cat__releases-note {
+  max-width: 62ch;
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+  line-height: 1.65;
+}
+
+.cat__releases-list {
+  border-top: 1px solid var(--edge);
+  margin-top: var(--stack-xs);
+}
+
+.cat__releases-list li {
+  display: grid;
+  gap: 0.1rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--edge);
+}
+
+.cat__rel-cat {
+  color: rgb(var(--lamp-rgb) / 0.6);
+}
+
+.cat__rel-title {
+  font-size: var(--t-base);
+  color: var(--ink);
+}
+
+.cat__rel-meta {
+  color: var(--ink-4);
+}
+
+@media (min-width: 880px) {
+  .cat__releases-list li {
+    grid-template-columns: 6rem minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+}
+
+.cat__source {
+  padding-top: var(--stack-md);
+  color: var(--ink-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat__detail {
+    animation: none;
+  }
+}

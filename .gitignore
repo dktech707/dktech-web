@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.vite/
+.claude/
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+
+# tsc emit artifacts. Source under src/ is .ts/.tsx/.css/.json only; the app is
+# bundled from those by Vite. Any .js/.d.ts/.js.map under src/ is stray compiler
+# output and must never be committed (Vite resolves .js before .ts, so a stale
+# emitted file could shadow its source).
+src/**/*.js
+src/**/*.jsx
+src/**/*.d.ts
+src/**/*.js.map

@@ -1,0 +1,356 @@
+.trans {
+  position: relative;
+  padding-bottom: var(--stack-lg);
+  /*
+    A plate pushed toward the viewer is rendered larger than its layout box.
+    The geometry below already accounts for that, and this is the guard that
+    keeps a rounding error from turning into a horizontal scrollbar. Clipping
+    here is safe: the preserve-3d context lives on .trans__stage, a descendant.
+  */
+  overflow-x: clip;
+}
+
+/* ---- Full bleed room ---- */
+
+.trans__room {
+  position: relative;
+  min-height: clamp(520px, 92vh, 940px);
+  display: grid;
+  align-items: end;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.trans__room-media {
+  position: absolute;
+  inset: -6% 0;
+  z-index: -2;
+  will-change: transform, clip-path;
+  --aperture: 0;
+}
+
+.trans__room-media .frame {
+  width: 100%;
+  height: 100%;
+}
+
+/* Crimson rides the opening edge of the aperture while it is still moving. */
+.trans__room-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--aperture);
+  background:
+    linear-gradient(to bottom, rgb(var(--blood-rgb) / 0.75) 0%, transparent 6%),
+    linear-gradient(to top, rgb(var(--blood-rgb) / 0.6) 0%, transparent 5%);
+}
+
+/*
+  Darkening in two directions so the type sits in the picture rather than on
+  it, and so the bottom of the frame dissolves into the page instead of ending
+  on a visible band.
+*/
+.trans__room::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      var(--void) 0%,
+      var(--void) 6%,
+      rgb(1 1 2 / 0.92) 18%,
+      rgb(1 1 2 / 0.7) 34%,
+      rgb(1 1 2 / 0.28) 62%,
+      rgb(1 1 2 / 0.5) 100%
+    ),
+    linear-gradient(to right, rgb(1 1 2 / 0.8) 0%, rgb(1 1 2 / 0.22) 46%, transparent 68%),
+    radial-gradient(120% 100% at 18% 78%, rgb(var(--blood-rgb) / 0.16) 0%, transparent 58%);
+}
+
+.trans__room-copy {
+  padding-bottom: clamp(2.5rem, 1.5rem + 5vh, 6rem);
+}
+
+.trans__chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+  margin-bottom: clamp(1rem, 0.6rem + 1.4vw, 1.9rem);
+  color: var(--ink-3);
+}
+
+.trans__chain-n {
+  color: var(--ink-4);
+}
+
+.trans__chain span[aria-hidden] {
+  color: rgb(var(--blood-rgb) / 0.9);
+}
+
+.trans__title {
+  font-size: var(--t-h2);
+  font-weight: var(--w-light);
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+  color: var(--ink);
+}
+
+.trans__lead {
+  margin-top: clamp(1rem, 0.6rem + 1.2vw, 1.6rem);
+  max-width: 48ch;
+  font-size: var(--t-base);
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+/* ---- Depth stage ---- */
+
+/*
+  The stage takes its height from the dominant plate rather than from a guessed
+  clamp, so there is never a band of dead space under the composition. The mid
+  plate stays in flow and sizes the stage; the other two hang off it.
+*/
+.trans__stage {
+  position: relative;
+  margin-block: clamp(2rem, 1rem + 4vw, 6rem);
+  padding-bottom: clamp(1.5rem, 0.5rem + 4vw, 5rem);
+  perspective: 1400px;
+  perspective-origin: 52% 42%;
+  transform-style: preserve-3d;
+}
+
+.trans__plate {
+  position: absolute;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* Each plate carries its own falloff so it sits in air, not on the page. */
+.trans__plate::after {
+  content: '';
+  position: absolute;
+  inset: -14%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(60% 55% at 50% 55%, rgb(1 1 2 / 0.86) 0%, transparent 72%);
+}
+
+/* Overlaps the dominant plate rather than sitting beside it: distance only
+   reads as distance when something is in front of it. */
+.trans__plate--back {
+  left: 5%;
+  top: 14%;
+  width: 27%;
+  transform: translate3d(0, 0, -210px);
+}
+
+/* In flow. This is the plate the stage is as tall as. */
+.trans__plate--mid {
+  position: relative;
+  margin-left: 27%;
+  width: 42%;
+  transform: translate3d(0, 0, 0);
+}
+
+.trans__plate--front {
+  left: 64%;
+  top: 30%;
+  width: 27%;
+  transform: translate3d(0, 0, 130px);
+}
+
+/* Distance reads as haze, not just as size. */
+.trans__plate--back .frame img {
+  filter: contrast(1.02) saturate(0.5) brightness(0.72);
+}
+
+.trans__plate--front .frame img {
+  filter: contrast(1.1) saturate(0.88) brightness(0.98);
+}
+
+/* ---- Named room, full bleed and low ---- */
+
+.trans__band {
+  position: relative;
+  overflow: clip;
+  display: grid;
+  align-items: end;
+  min-height: clamp(15rem, 12rem + 14vw, 26rem);
+}
+
+.trans__band-media {
+  position: absolute;
+  inset: -8% 0;
+  z-index: -2;
+  will-change: transform;
+}
+
+.trans__band-media .frame {
+  width: 100%;
+  height: 100%;
+}
+
+.trans__band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, var(--void) 0%, rgb(1 1 2 / 0.72) 22%, rgb(1 1 2 / 0.3) 62%, rgb(1 1 2 / 0.72) 100%),
+    linear-gradient(to right, rgb(1 1 2 / 0.7) 0%, transparent 52%);
+}
+
+.trans__band-copy {
+  padding-block: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+}
+
+.trans__band-name {
+  font-size: clamp(1.4rem, 0.9rem + 1.8vw, 2.6rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+.trans__band-city {
+  margin-top: 0.4em;
+  color: var(--ink-4);
+}
+
+/* ---- Foot ---- */
+
+.trans__foot {
+  display: grid;
+  gap: var(--stack-md);
+  padding-top: var(--stack-lg);
+}
+
+.trans__rooms p.label {
+  margin-bottom: 1rem;
+  color: var(--ink-4);
+}
+
+.trans__rooms li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.6rem;
+}
+
+.trans__room-name {
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+}
+
+.trans__rooms-note {
+  align-self: end;
+  max-width: 42ch;
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+  line-height: 1.6;
+}
+
+/* ---- Desktop ---- */
+
+@media (min-width: 1000px) {
+  .trans__foot {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--stack-lg);
+  }
+
+  .trans__title {
+    max-width: 10ch;
+  }
+}
+
+/* ---- Narrow: the stage compresses but keeps its overlap ---- */
+
+@media (max-width: 999px) {
+  .trans__stage {
+    perspective: 900px;
+    padding-bottom: 14vw;
+  }
+
+  .trans__plate--back {
+    left: 0;
+    top: 18%;
+    width: 40%;
+  }
+
+  .trans__plate--mid {
+    margin-left: 24%;
+    width: 58%;
+  }
+
+  /*
+    Pulled in from the edge. At this perspective the front plate renders about
+    17 percent wider than its layout box, and placing it flush right would push
+    that overhang past the viewport.
+  */
+  .trans__plate--front {
+    left: 56%;
+    top: 44%;
+    width: 38%;
+  }
+}
+
+@media (max-width: 560px) {
+  .trans__stage {
+    perspective: 700px;
+    padding-bottom: 22vw;
+  }
+
+  .trans__plate--back {
+    top: 22%;
+    width: 44%;
+  }
+
+  .trans__plate--mid {
+    margin-left: 22%;
+    width: 64%;
+  }
+
+  .trans__plate--front {
+    left: 50%;
+    top: 52%;
+    width: 40%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trans__room-media,
+  .trans__band-media {
+    transform: none !important;
+    clip-path: none !important;
+    inset: 0;
+    will-change: auto;
+  }
+
+  .trans__room-media::after {
+    opacity: 0;
+  }
+
+  /*
+    Depth is kept, movement is not. The plates hold their distances so the
+    composition still reads as a space rather than a stack.
+  */
+  .trans__plate--back {
+    transform: translate3d(0, 0, -210px);
+  }
+
+  .trans__plate--mid {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .trans__plate--front {
+    transform: translate3d(0, 0, 130px);
+  }
+}

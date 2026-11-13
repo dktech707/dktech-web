@@ -1,0 +1,38 @@
+.relit {
+  position: relative;
+  --spot-size: 100vmax;
+  --relit-w: 100%;
+  --relit-h: 100%;
+}
+
+.relit__dim,
+.relit__inner {
+  width: 100%;
+  height: 100%;
+}
+
+.relit__lit {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.relit__spot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--spot-size);
+  height: var(--spot-size);
+  will-change: transform;
+  transform: translate3d(-50vw, -50vh, 0);
+}
+
+.relit__inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--relit-w);
+  height: var(--relit-h);
+  will-change: transform;
+}

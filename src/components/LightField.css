@@ -1,0 +1,142 @@
+.light-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+
+  --light-r: 255;
+  --light-g: 226;
+  --light-b: 186;
+  --light-power: 0;
+  --light-depth: 0.6;
+  --light-side: 1200px;
+  --light-x: 50%;
+  --light-y: 45%;
+}
+
+/*
+  All three lobes are square, centred on their own origin and moved with
+  transform only. Scale carries the spread, so nothing here triggers layout.
+*/
+.light-field__near,
+.light-field__far,
+.light-field__blood {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--light-side);
+  height: var(--light-side);
+  margin-left: calc(var(--light-side) / -2);
+  margin-top: calc(var(--light-side) / -2);
+  will-change: transform;
+  transform: translate3d(50vw, 45vh, 0);
+}
+
+.light-field__near {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgb(var(--light-r) var(--light-g) var(--light-b) / calc(0.115 * var(--light-power))) 0%,
+    rgb(var(--light-r) var(--light-g) var(--light-b) / calc(0.058 * var(--light-power))) 22%,
+    rgb(var(--light-r) var(--light-g) var(--light-b) / calc(0.018 * var(--light-power))) 46%,
+    transparent 70%
+  );
+}
+
+.light-field__far {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgb(var(--light-r) var(--light-g) var(--light-b) / calc(0.026 * var(--light-power))) 0%,
+    rgb(var(--light-r) var(--light-g) var(--light-b) / calc(0.01 * var(--light-power))) 40%,
+    transparent 70%
+  );
+}
+
+/*
+  Where the light dies.
+
+  A crimson annulus sitting just outside the warm falloff. It is transparent at
+  the centre, so it never tints anything the lamp is actually lighting; it only
+  colours the boundary between light and black. This is the only place red
+  enters the page by itself.
+*/
+.light-field__blood {
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    transparent 34%,
+    rgb(var(--blood-rgb) / calc(0.16 * var(--light-power))) 54%,
+    rgb(var(--blood-rgb) / calc(0.07 * var(--light-power))) 68%,
+    transparent 82%
+  );
+}
+
+/*
+  Ground haze. Stops the bottom of every viewport from becoming a flat black
+  band, which is the single thing that makes dark pages look cheap.
+*/
+.light-field__ground {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 44vh;
+  background:
+    radial-gradient(120% 100% at 50% 132%, rgb(255 255 255 / 0.028) 0%, transparent 60%),
+    linear-gradient(to top, rgb(255 255 255 / 0.011), transparent 70%);
+}
+
+/*
+  The walls.
+
+  Vignette strength is driven per section, so the room physically closes in
+  around the hero and the booking address and opens out across the catalogue.
+  A crimson trace rides the outermost corner of it.
+*/
+.light-field__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      130% 105% at var(--light-x) var(--light-y),
+      transparent 0%,
+      transparent calc(28% + (1 - var(--light-depth)) * 26%),
+      rgb(1 1 2 / calc(0.5 * var(--light-depth))) 72%,
+      rgb(1 1 2 / calc(0.86 * var(--light-depth))) 100%
+    ),
+    radial-gradient(
+      150% 120% at var(--light-x) var(--light-y),
+      transparent 62%,
+      rgb(var(--blood-rgb) / calc(0.05 * var(--light-depth))) 88%,
+      transparent 100%
+    );
+}
+
+/*
+  Film grain. A single SVG noise tile at very low opacity. It gives the
+  gradients something to break against so the deep blacks never band on 8-bit
+  displays.
+*/
+.light-field__grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.42;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .light-field__grain {
+    animation: grain-drift 6s steps(6, end) infinite;
+  }
+}
+
+@keyframes grain-drift {
+  0% { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(-4%, 2%, 0); }
+  40% { transform: translate3d(3%, -3%, 0); }
+  60% { transform: translate3d(-2%, -2%, 0); }
+  80% { transform: translate3d(4%, 3%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}

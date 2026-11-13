@@ -1,0 +1,137 @@
+/*
+  DKTech design tokens.
+
+  Darkness here is a material with depth, not a flat fill. Five graphite steps
+  sit between true void and the lightest surface, and every large surface is
+  built from at least two of them so an edge is always readable.
+
+  There is no brand accent colour. The accent is light itself: a warm tungsten
+  that matches the key light in the controlled portrait. It appears as
+  illumination and as small functional signals, never as decoration.
+*/
+
+:root {
+  /* ---- Darkness, in depth order ---- */
+  --void: #010102;
+  --surface-0: #050607;
+  --surface-1: #08090b;
+  --surface-2: #0c0e11;
+  --surface-3: #121418;
+  --surface-4: #191c21;
+
+  /* ---- Hairlines. Fewer of these than before, and quieter. ---- */
+  --edge: rgb(255 255 255 / 0.045);
+  --edge-2: rgb(255 255 255 / 0.09);
+  --edge-3: rgb(255 255 255 / 0.18);
+
+  /*
+    Ink. Warm, never pure white: pure white reads clinical on black.
+
+    The four dim steps are set by contrast, not by eye. Against the darkest
+    surface on the site they measure roughly 9.8:1, 6.2:1 and 4.8:1, so every
+    tier that carries words clears WCAG AA for body text. The fifth step is
+    below that on purpose and is never used for words: it is for hairlines, for
+    the unlit state of the wordmark, and for markers that only need to be felt.
+  */
+  --ink-rgb: 240 236 229;
+  --ink: rgb(var(--ink-rgb));
+  --ink-2: rgb(var(--ink-rgb) / 0.74);
+  --ink-3: rgb(var(--ink-rgb) / 0.58);
+  --ink-4: rgb(var(--ink-rgb) / 0.5);
+  --ink-5: rgb(var(--ink-rgb) / 0.24);
+  /* Not text. The wordmark before the light reaches it. */
+  --ghost: rgb(var(--ink-rgb) / 0.13);
+
+  /* ---- The lamp. The warm light that travels the page. ---- */
+  --lamp-rgb: 255 226 186;
+  --lamp: rgb(var(--lamp-rgb));
+  --lamp-soft: rgb(var(--lamp-rgb) / 0.16);
+  --lamp-faint: rgb(var(--lamp-rgb) / 0.06);
+
+  /*
+    Blood.
+
+    A very dark crimson, close to black. It is never a fill and never a theme:
+    it appears only where light dies, at the outer edge of a falloff, along a
+    section seam as the light crosses it, on the opening edge of a mask, and on
+    the one state in the catalogue that means "this row is unresolved".
+
+    Kept at 0.06 to 0.3 alpha almost everywhere. At full strength it is still
+    darker than the ink.
+  */
+  --blood-rgb: 122 10 26;
+  --blood: rgb(var(--blood-rgb));
+  --blood-edge: rgb(var(--blood-rgb) / 0.55);
+  --blood-glow: rgb(var(--blood-rgb) / 0.22);
+  --blood-air: rgb(var(--blood-rgb) / 0.07);
+
+  /*
+    Room colours. Sampled from the actual live photographs and only ever used
+    inside sections built from those photographs, at low alpha, as air. They
+    are documentary, not brand.
+  */
+  --room-red: 150 14 44;
+  --room-booth: 44 62 128;
+  --room-openair: 30 108 104;
+
+  /* ---- Type ---- */
+  --font-sans: 'Inter Tight Variable', 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', monospace;
+
+  --w-light: 300;
+  --w-book: 400;
+  --w-medium: 500;
+
+  /* Fluid scale, 390px to 1680px viewport. */
+  --t-mono: clamp(0.625rem, 0.58rem + 0.18vw, 0.72rem);
+  --t-xs: clamp(0.75rem, 0.72rem + 0.14vw, 0.83rem);
+  --t-sm: clamp(0.875rem, 0.84rem + 0.16vw, 0.96rem);
+  --t-base: clamp(1rem, 0.95rem + 0.24vw, 1.14rem);
+  --t-lead: clamp(1.15rem, 1.02rem + 0.6vw, 1.55rem);
+  --t-h3: clamp(1.4rem, 1.2rem + 0.9vw, 2.1rem);
+  --t-h2: clamp(2rem, 1.5rem + 2.3vw, 3.9rem);
+  --t-h1: clamp(2.6rem, 1.6rem + 4.6vw, 6.6rem);
+  --t-mark: clamp(3.6rem, 1.4rem + 10.6vw, 13.5rem);
+
+  /* ---- Rhythm ---- */
+  --gutter: clamp(1.25rem, 0.6rem + 2.8vw, 4.5rem);
+  --measure: 34ch;
+  --measure-wide: 52ch;
+  --stack-xs: clamp(0.5rem, 0.4rem + 0.4vw, 0.75rem);
+  --stack-sm: clamp(0.875rem, 0.7rem + 0.7vw, 1.35rem);
+  --stack-md: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  --stack-lg: clamp(2.75rem, 1.8rem + 3.6vw, 5.25rem);
+  --stack-xl: clamp(5rem, 3.2rem + 6.4vw, 9.5rem);
+
+  --max-w: 1560px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-glide: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-fast: 220ms;
+  --dur-mid: 480ms;
+  --dur-slow: 900ms;
+
+  /*
+    One real number from the music drives the site's slowest timing. DKTech
+    works in roughly the 140 to 150 BPM territory; 144 BPM is the centre of it.
+    A bar of 4/4 at 144 BPM is 1666.67ms. Nothing flashes on the beat. The bar
+    is used only for the very long, barely visible breathing of the light, so
+    the page has an underlying pulse rather than a decorative one.
+
+    Source of truth is BPM in src/lib/motion.ts; syncTempoToCSS() overwrites
+    these two values on :root at startup. The literals below are the no-JS
+    fallback and must stay equal to (60000 / BPM) * 4 and eight bars of it.
+  */
+  --bar: 1666.67ms;
+  --phrase: 13333.33ms; /* eight bars */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-mid: 1ms;
+    --dur-slow: 1ms;
+  }
+}

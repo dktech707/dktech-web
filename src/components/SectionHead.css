@@ -1,0 +1,111 @@
+.sechead {
+  display: grid;
+  gap: clamp(1rem, 0.6rem + 1.4vw, 1.9rem);
+}
+
+.sechead__index {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  color: var(--ink-4);
+}
+
+/* A short mark that fills with crimson as the section arrives. */
+.sechead__tick {
+  display: block;
+  width: clamp(1.75rem, 1rem + 2.4vw, 3.25rem);
+  height: 1px;
+  background: var(--edge-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.sechead__tick::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.9), rgb(var(--lamp-rgb) / 0.85));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 1200ms var(--ease-out) 120ms;
+}
+
+.sechead[data-revealed='true'] .sechead__tick::after {
+  transform: scaleX(1);
+}
+
+.sechead__title {
+  font-size: var(--t-h2);
+  font-weight: var(--w-light);
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+  color: var(--ink);
+  max-width: 18ch;
+  clip-path: inset(0 0 106% 0);
+  transform: translate3d(0, 0.14em, 0);
+  transition:
+    clip-path 1100ms var(--ease-out) 120ms,
+    transform 1100ms var(--ease-out) 120ms;
+}
+
+.sechead[data-revealed='true'] .sechead__title {
+  clip-path: inset(-30% -14% -24% -2%);
+  transform: none;
+}
+
+.sechead__lead {
+  max-width: 48ch;
+  font-size: var(--t-base);
+  color: var(--ink-2);
+  line-height: 1.62;
+  opacity: 0;
+  transform: translate3d(0, 0.7rem, 0);
+  transition:
+    opacity 900ms var(--ease-out) 320ms,
+    transform 900ms var(--ease-out) 320ms;
+}
+
+.sechead[data-revealed='true'] .sechead__lead {
+  opacity: 1;
+  transform: none;
+}
+
+.sechead__lead p + p {
+  margin-top: 0.85em;
+}
+
+/* ---- Variants ---- */
+
+.sechead--quiet .sechead__title {
+  font-size: var(--t-h3);
+  max-width: 26ch;
+}
+
+/*
+  The supporting text sits below and indented rather than beside the title, so
+  the section opens as a shape rather than as two aligned columns.
+*/
+@media (min-width: 900px) {
+  .sechead--lead .sechead__lead {
+    margin-left: clamp(3rem, 1rem + 12vw, 16rem);
+  }
+
+  .sechead--lead .sechead__title {
+    max-width: 15ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sechead__title,
+  .sechead__lead,
+  .sechead__tick::after {
+    transition: none;
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .sechead__tick::after {
+    transform: scaleX(1);
+  }
+}

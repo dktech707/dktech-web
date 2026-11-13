@@ -1,0 +1,217 @@
+.artefact {
+  --lit: 0;
+  --z: 0px;
+  --tilt: 0deg;
+  position: relative;
+  margin: 0;
+  transform-style: preserve-3d;
+}
+
+.artefact__plane {
+  position: relative;
+  display: block;
+  transform: translate3d(0, calc(var(--lit) * -0.6rem), var(--z)) rotate(var(--tilt));
+  transition: transform 900ms var(--ease-out);
+  will-change: transform;
+}
+
+/*
+  The object's own shadow. It tightens as the light arrives, which is what
+  makes the sleeve read as sitting in a room rather than pasted on the page.
+*/
+.artefact__plane::before {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: calc(-4% - var(--lit) * 2%);
+  height: 22%;
+  z-index: -1;
+  background: radial-gradient(60% 100% at 50% 0%, rgb(1 1 2 / 0.9) 0%, transparent 72%);
+  filter: blur(calc(6px + var(--lit) * 10px));
+  opacity: calc(0.4 + var(--lit) * 0.6);
+  transition: opacity 700ms var(--ease-out);
+}
+
+/*
+  Colour is discovered, not displayed. Unlit, a sleeve is a dark grey shape.
+  These covers carry purple, teal, orange and green, and letting them all sit
+  on the page at once would turn the archive into a swatch sheet.
+*/
+.artefact .frame img {
+  filter:
+    grayscale(calc(0.92 - var(--lit) * 0.9))
+    brightness(calc(0.3 + var(--lit) * 0.72))
+    contrast(calc(1.14 - var(--lit) * 0.12))
+    saturate(calc(0.4 + var(--lit) * 0.6));
+  transition: filter 900ms var(--ease-out);
+}
+
+/* ---- Physical treatment: paper edge, record inside, sleeves behind ---- */
+
+.artefact__body {
+  position: relative;
+  display: block;
+  z-index: 2;
+}
+
+/*
+  The printed edge of the sleeve. A few pixels of paper thickness down the left
+  side, dark at the bottom and catching a little of the light at the top, so the
+  sleeve reads as a printed object with a spine rather than an image.
+*/
+.artefact__edge {
+  position: absolute;
+  top: 0.6%;
+  bottom: 0.6%;
+  left: calc(-1 * clamp(3px, 0.45vw, 7px));
+  width: clamp(3px, 0.45vw, 7px);
+  border-radius: 1px 0 0 1px;
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--lamp-rgb) / calc(0.05 + var(--lit) * 0.16)),
+    rgb(20 20 24 / 0.9) 38%,
+    rgb(1 1 2 / 0.96)
+  );
+  box-shadow: -1px 0 3px rgb(1 1 2 / 0.8);
+}
+
+/*
+  The record. It sits inside the sleeve and slides out to the right as the
+  light finds the object, then goes back when it leaves. Grooves are a
+  repeating gradient; the centre is a plain dark label, never a fake logo.
+*/
+.artefact__disc {
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  right: 0;
+  aspect-ratio: 1;
+  z-index: 1;
+  border-radius: 50%;
+  transform: translate3d(calc(var(--lit) * 27%), 0, 0);
+  transition: transform 1100ms var(--ease-out);
+  background:
+    radial-gradient(circle at 50% 50%, rgb(10 10 12) 0 17%, transparent 17.4%),
+    radial-gradient(circle at 50% 50%, rgb(var(--blood-rgb) / 0.5) 0 9%, transparent 9.4%),
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgb(255 255 255 / 0.05) 0 1px,
+      rgb(0 0 0 / 0) 1px 3px
+    ),
+    radial-gradient(circle at 38% 30%, rgb(38 38 44) 0%, rgb(8 8 10) 62%);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.05),
+    -8px 0 22px rgb(1 1 2 / 0.85);
+  opacity: calc(0.5 + var(--lit) * 0.5);
+}
+
+/* A rim of light on the record's upper edge as it comes out. */
+.artefact__disc::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    120deg,
+    transparent 32%,
+    rgb(var(--lamp-rgb) / calc(var(--lit) * 0.13)) 48%,
+    transparent 62%
+  );
+}
+
+/* More sleeves behind this one. Offset, darker, never fully seen. */
+.artefact__behind {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 1px;
+  background: linear-gradient(160deg, rgb(24 25 29), rgb(9 9 11));
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.035);
+  transform: translate3d(calc(var(--s) * 1.6%), calc(var(--s) * -1.4%), calc(var(--s) * -14px));
+  opacity: calc(0.7 - var(--s) * 0.16);
+}
+
+/* Light crossing the surface. Never visible until the object is nearly lit. */
+.artefact__sheen {
+  --sheen-x: 50%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: calc(var(--lit) * var(--lit) * 0.5);
+  background: linear-gradient(
+    100deg,
+    transparent calc(var(--sheen-x) - 34%),
+    rgb(var(--lamp-rgb) / 0.11) calc(var(--sheen-x) - 6%),
+    rgb(255 255 255 / 0.05) var(--sheen-x),
+    rgb(var(--blood-rgb) / 0.18) calc(var(--sheen-x) + 12%),
+    transparent calc(var(--sheen-x) + 36%)
+  );
+  mix-blend-mode: screen;
+}
+
+/*
+  A vinyl mockup is a photograph of an object, not a flat sleeve, so it gets a
+  little more room and keeps a touch more of its own colour.
+*/
+.artefact--vinyl .frame img {
+  filter:
+    grayscale(calc(0.84 - var(--lit) * 0.78))
+    brightness(calc(0.34 + var(--lit) * 0.7))
+    contrast(calc(1.1 - var(--lit) * 0.1))
+    saturate(calc(0.34 + var(--lit) * 0.62));
+}
+
+/* ---- Caption ---- */
+
+.artefact__caption {
+  display: grid;
+  gap: 0.16rem;
+  margin-top: clamp(0.75rem, 0.5rem + 0.8vw, 1.15rem);
+  opacity: calc(0.42 + var(--lit) * 0.58);
+  transition: opacity 700ms var(--ease-out);
+}
+
+.artefact__title {
+  font-size: var(--t-base);
+  font-weight: var(--w-light);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.artefact__credit {
+  font-size: var(--t-sm);
+  color: var(--ink-3);
+}
+
+.artefact__meta {
+  color: var(--ink-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artefact__plane,
+  .artefact .frame img,
+  .artefact__caption,
+  .artefact__plane::before,
+  .artefact__disc {
+    transition: none;
+  }
+
+  .artefact__plane {
+    transform: translate3d(0, 0, var(--z)) rotate(var(--tilt));
+  }
+
+  .artefact__sheen {
+    display: none;
+  }
+
+  /*
+    The record still sits proud of the sleeve so the object stays physical;
+    it simply does not travel.
+  */
+  .artefact__disc {
+    transform: translate3d(13%, 0, 0);
+    opacity: 0.85;
+  }
+}

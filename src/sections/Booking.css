@@ -1,0 +1,169 @@
+.booking {
+  position: relative;
+  padding-block: var(--stack-xl);
+  /*
+    The last light on the page collapses to a point behind the address, with
+    the crimson closing in around it exactly where the warm light runs out.
+  */
+  background:
+    radial-gradient(70% 55% at 50% 44%, rgb(var(--lamp-rgb) / 0.05), transparent 66%),
+    radial-gradient(110% 85% at 50% 44%, transparent 42%, rgb(var(--blood-rgb) / 0.1) 70%, transparent 92%);
+}
+
+.booking__inner {
+  display: grid;
+  gap: var(--stack-lg);
+}
+
+.booking__body {
+  display: grid;
+  gap: var(--stack-lg);
+  opacity: 0;
+  transform: translate3d(0, 1.2rem, 0);
+  transition:
+    opacity 1000ms var(--ease-out),
+    transform 1000ms var(--ease-out);
+}
+
+.booking__body[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- The address ---- */
+
+.booking__mail {
+  display: grid;
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.35rem);
+  width: fit-content;
+  max-width: 100%;
+  padding-block: 0.25rem;
+}
+
+.booking__mail-text {
+  font-size: clamp(1.35rem, 0.55rem + 3.4vw, 4.4rem);
+  font-weight: var(--w-light);
+  letter-spacing: -0.038em;
+  line-height: 1;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.booking__mail-rule {
+  display: block;
+  height: 1px;
+  background: var(--edge-3);
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+  transition:
+    background-color var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+
+.booking__mail:hover .booking__mail-rule,
+.booking__mail:focus-visible .booking__mail-rule {
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.95), rgb(var(--lamp-rgb) / 0.9) 60%);
+  box-shadow: 0 0 24px rgb(var(--lamp-rgb) / 0.22);
+}
+
+/* ---- Detail columns ---- */
+
+.booking__grid {
+  display: grid;
+  gap: var(--stack-md);
+}
+
+.booking__head {
+  margin-bottom: 1rem;
+  color: var(--ink-4);
+}
+
+.booking__available li,
+.booking__where > div,
+.booking__links li {
+  padding-block: 0.42rem;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+
+.booking__where {
+  margin: 0;
+}
+
+.booking__where > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.booking__where dt {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.booking__where dd {
+  margin: 0;
+  text-align: right;
+}
+
+.booking__where a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  border-bottom: 1px solid var(--edge-3);
+  padding-bottom: 0.1em;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.booking__where a:hover {
+  border-color: rgb(var(--lamp-rgb) / 0.8);
+}
+
+.booking__links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 40px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.booking__links a:hover {
+  color: var(--ink);
+}
+
+.booking__links a .data {
+  color: var(--ink-4);
+}
+
+.booking__close {
+  font-size: var(--t-lead);
+  font-weight: var(--w-light);
+  letter-spacing: -0.02em;
+  color: var(--ink-3);
+}
+
+@media (min-width: 860px) {
+  .booking__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 0.5rem + 3vw, 4rem);
+    align-items: start;
+  }
+
+  .booking__close {
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking__body {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

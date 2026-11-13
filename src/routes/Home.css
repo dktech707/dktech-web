@@ -1,0 +1,43 @@
+.home {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+  Section joins.
+
+  Each seam is a short crimson stub at the left rather than a rule across the
+  page. Nine full-width hairlines was the single biggest reason the page read
+  as a document: it drew a table around the whole experience. What is left
+  marks the join without ruling it off.
+*/
+.home > section + section:not(.trans):not(.learning):not(.machines)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  width: clamp(2.5rem, 1rem + 5vw, 6rem);
+  height: 1px;
+  background: linear-gradient(to right, rgb(var(--blood-rgb) / 0.75), rgb(255 255 255 / 0.07) 60%, transparent);
+}
+
+/*
+  Depth on arrival.
+
+  Every section below the hero is pushed slightly back and lifted as it comes
+  into view. It is a very small move, about a percent of scale, but it is what
+  makes the page feel like walking forward through rooms rather than scrolling
+  a column. Driven from the shared frame loop, never from a transition.
+*/
+.home > section {
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home > section {
+    transform: none !important;
+    opacity: 1 !important;
+    will-change: auto;
+  }
+}
